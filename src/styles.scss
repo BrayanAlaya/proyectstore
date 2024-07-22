@@ -1,1 +1,67 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.container{
+  width: 100%;
+  max-width: 80%;
+  margin: 0 auto
+}
+
+@import "@angular/material/theming";
+
+@include mat-core();
+
+$darkBlue: #0c1561;
+
+$dark-blue-palette: (
+  50: #e0e2f5,
+  100: #b3b7e6,
+  200: #8089d5,
+  300: #4d5bc4,
+  400: #2639b9,
+  500: #0c1561, // color principal
+  600: #0b1358,
+  700: #09104d,
+  800: #070d42,
+  900: #040a31,
+  A100: #525ef5,
+  A200: #2b39e8,
+  A400: #141dc4,
+  A700: #0f179c,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: $black-87-opacity,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$my-primary-palette: mat-palette($dark-blue-palette);
+$my-accent-palette: mat-palette($mat-pink, A200, A100, A400);
+$my-warn-palette: mat-palette($mat-red);
+
+$my-app-theme: mat-light-theme((
+  color: (
+    primary: $my-primary-palette,
+    accent: $my-accent-palette,
+    warn: $my-warn-palette,
+  )
+));
+
+@include angular-material-theme($my-app-theme);
+
+
