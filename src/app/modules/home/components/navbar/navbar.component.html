@@ -1,0 +1,90 @@
+<div class="navbar">
+    <div class="navbar--pc container">
+        <div class="navbar__upper">
+            <h1 class="navbar__title">MercadoFree</h1>
+
+            <div class="navbar__search">
+                <input class="navbar__search__input" placeholder="Buscar" #searchInput type="text">
+                <a class="navbar__search__button" (click)="searchInput.focus()" routerLink=""><mat-icon
+                        svgIcon="search-button" aria-hidden="false"></mat-icon></a>
+            </div>
+
+            <div class="navbar__user">
+
+                <a *ngIf="user == null" class="navbar__user__optionsName" href="/auth/register">Register</a>
+                <a *ngIf="user == null" class="navbar__user__optionsName" href="/auth">Log In</a>
+    
+                <a *ngIf="user != null" class="navbar__user__optionsName" routerLink="">{{user!.name}}</a>
+                <img *ngIf="user != null" class="navbar__user__image" src="{{user!.image == null ? 'assets/userUnknow.jpg':''}}"
+                    alt="Descripción de la imagen">
+            </div>
+        </div>
+
+        <div class="navbar__lower">
+
+            <button class="navbar__user__optionsName" [matMenuTriggerFor]="menu">Categorias</button>
+            <mat-menu #menu="matMenu">
+                <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Categoria 2</a>
+                <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Categoria 3</a>
+                <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Categoria 4</a>
+                <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Categoria 5</a>
+            </mat-menu>
+
+
+            <a class="navbar__user__optionsName" routerLink="">Historial</a>
+            <a class="navbar__user__optionsName" routerLink="">Carrito</a>
+            <a class="navbar__user__optionsName" routerLink="">Favoritos</a>
+
+            <a class="navbar__user__optionsName" routerLink="">Vender</a>
+            <a class="navbar__user__optionsName" routerLink="">Notificaciones</a>
+            <a class="navbar__user__optionsName" routerLink="">Ayuda</a>
+            <button *ngIf="user != null" class="navbar__user__optionsName" (click)="logOut()">Log out</button>
+
+        </div>
+    </div>
+
+    <div class="sidenav">
+
+        <div class="sidenav__buttonTitle">
+            <button class="sidenav__button" (click)="slide = true"><mat-icon svgIcon="slide-button"></mat-icon></button>
+            <h1 class="sidenav__title">MercadoFree</h1>
+        </div>
+
+    </div>
+</div>
+
+<div class="slide" [ngClass]="{ 'slide--action': slide }">
+
+    <div class="slide--in">
+
+        <div class="navbar__search">
+            <input class="navbar__search__input" #searchInput placeholder="Buscar" type="text">
+            <a class="navbar__search__button" (click)="searchInput.focus()" routerLink=""><mat-icon
+                    svgIcon="search-button" aria-hidden="false"></mat-icon></a>
+        </div>
+
+       
+        <div class="navbar__user">
+
+            <a *ngIf="user == null" class="navbar__user__optionsName" routerLink="/auth/register">Register</a>
+            <a *ngIf="user == null" class="navbar__user__optionsName" routerLink="/auth">Log In</a>
+
+            <a *ngIf="user != null" class="navbar__user__optionsName" routerLink="">{{user!.name}}</a>
+            <img *ngIf="user != null" class="navbar__user__image" src="{{user!.image == null ? 'assets/userUnknow.jpg':''}}"
+                alt="Descripción de la imagen">
+        </div>
+
+        <div class="slide__menu">
+
+            <a class="navbar__user__optionsName" routerLink="">Historial</a>
+            <a class="navbar__user__optionsName" routerLink="">Carrito</a>
+            <a class="navbar__user__optionsName" routerLink="">Favoritos</a>
+            <a class="navbar__user__optionsName" routerLink="">Vender</a>
+            <a class="navbar__user__optionsName" routerLink="">Notificaciones</a>
+            <a class="navbar__user__optionsName" routerLink="">Ayuda</a>
+            <button *ngIf="user != null" class="navbar__user__optionsName" (click)="logOut()">Log out</button>
+
+        </div>
+    </div>
+    <div class="slide--out" (click)="slide = false"></div>
+</div>
