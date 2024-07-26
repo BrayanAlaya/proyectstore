@@ -5,8 +5,6 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { FooterModule } from "./components/footer/footer.module";
 import { NavbarModule } from './components/navbar/navbar.module';
-import { BrowserModule } from '@angular/platform-browser';
-
 
 @NgModule({
   declarations: [
@@ -17,6 +15,6 @@ import { BrowserModule } from '@angular/platform-browser';
     HomeRoutingModule,
     NavbarModule,
     FooterModule
-]
+  ]
 })
 export class HomeModule { }

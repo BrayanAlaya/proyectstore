@@ -11,7 +11,7 @@ import { MainComponent } from './main.component';
   ],
   imports: [
     CommonModule,
-    MainRoutingModule
+    MainRoutingModule,
   ]
 })
 export class MainModule { }
