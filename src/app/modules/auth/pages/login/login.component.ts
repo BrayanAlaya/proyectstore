@@ -35,15 +35,8 @@ export class LoginComponent {
     }
 
     let user: User = {
-      id: 0,
-      name: "",
-      birthDate: "",
       email: this.loginForm.value.email,
       password: this.loginForm.value.password,
-      rol: 0,
-      createdDate: "",
-      image: "",
-      eliminado: 0,
     }
 
     this._userService.login(user).subscribe({
@@ -55,9 +48,17 @@ export class LoginComponent {
 
           this._route.navigate(["/"])
 
-        } else{
+        } else if(response.status == 401){
+          localStorage.setItem("user", JSON.stringify(response.data))
+          localStorage.setItem("token", response.token)
+          this._route.navigate(["/auth/auth_code"],{
+            queryParams: {
+              action: 2
+            }
+          })
+        }else{
           this.validForm = false;
-        }
+        } 
       }
     })
   }

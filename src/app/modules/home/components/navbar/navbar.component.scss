@@ -22,10 +22,10 @@
         align-items: center;
         gap: 0.5rem;
 
-        height: 1.8rem;
+        height: 2rem;
         background-color: white;
         padding: 3px 3px 3px 8px;
-        border-radius: 7px;
+        border-radius: 4px;
         cursor: pointer;
 
         width: 100%;
@@ -39,6 +39,7 @@
             margin: 0;
             border: 0;
             outline: none;
+            font-size: 1rem;
 
         }
 
@@ -55,8 +56,9 @@
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
+        
         height: 2rem;
-        gap: 5px;
+        gap: 1rem;
 
         &__imageContainer {
             height: 100%;
@@ -75,11 +77,12 @@
             color: white;
             height: 100%;
             max-width: 7rem;
-            padding: 0 1rem;
+            text-decoration: none;
 
             overflow: hidden;
             text-overflow: ellipsis; 
             white-space: nowrap; 
+            font-size: 1rem;
 
             display: flex;
             justify-content: flex-start;
@@ -89,7 +92,6 @@
 
             &:hover {
                 cursor: pointer;
-                background-color: darken(#0c1561, 7%);
             }
 
             &--categorias {
@@ -99,11 +101,11 @@
                 }
 
                 color: black;
-                margin: 15px 0;
+                padding: 15px 10px;
+                border-radius: 0;
 
                 &:hover {
                     cursor: pointer;
-                    background-color: transparent;
                 }
             }
         }
@@ -122,14 +124,15 @@
     }
 
     padding-top: 1.5rem;
-    background-color: #0c1561;
+    background-color: rgb(33, 33, 33);
     color: white;
 
     &__lower {
         display: flex;
-        justify-content: space-between;
-        height: 2.5rem;
-        padding: 1.5rem 0;
+        justify-content: start;
+        height: 2rem;
+        gap: 3rem;
+        padding: 1rem 0;
     }
 }
 
@@ -148,7 +151,7 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        height: 3rem;
+        height: 2rem;
         padding: 1rem 2rem;
     }
 

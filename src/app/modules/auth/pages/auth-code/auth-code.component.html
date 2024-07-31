@@ -1,0 +1,37 @@
+<app-navbar></app-navbar>
+
+<div class="authcode">
+    <mat-card class="authcode__card">
+
+        <div class="authcode__side">
+
+            <h2 class="authcode__title">Verificar Identidad</h2>
+            <p class="authcode__description">Ingresa tu email para recibir el código de identificación en tu correo
+                electrónico</p>
+            <p *ngIf="!codeValid" class="authcode__description authcode__description--error">Has excedido la cantidad de intentos, vuelve a enviar un nuevo código</p>
+
+        </div>
+        <form class="authcode__form" (ngSubmit)="onSubmit()" [formGroup]="authCodeForm">
+
+            <mat-form-field *ngIf="!codeSent">
+                <mat-label>Correo</mat-label>
+                <input matInput placeholder="example@example.com" formControlName="email" required>
+                <mat-error *ngIf="!emailValid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <fieldset *ngIf="codeSent" class="code">
+                <input class="code__field" maxlength="1" matInput formControlName="code1" required>
+
+                <input class="code__field" maxlength="1" matInput formControlName="code2" required>
+
+                <input class="code__field" maxlength="1" matInput formControlName="code3" required>
+
+                <input class="code__field" maxlength="1" matInput formControlName="code4" required>
+            </fieldset>
+
+            <button class="authcode__button authcode__button--send" (click)="sendCode()" type="button">Enviar
+                Clave</button>
+            <button class="authcode__button" *ngIf="codeSent" mat-raised-button color="primary">Validar Codigo</button>
+        </form>
+    </mat-card>
+</div>

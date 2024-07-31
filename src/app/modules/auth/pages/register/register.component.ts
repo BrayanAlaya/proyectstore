@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { User } from 'src/app/core/models/User';
 import { DatePipe } from '@angular/common';
 import { clases } from "../../../../core/Clases";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +26,8 @@ export class RegisterComponent {
     private _fb: FormBuilder,
     private _userService: UserService,
     private _datePipe: DatePipe,
-    private _clases: clases
+    private _clases: clases,
+    private _route: Router
   ) {
     this.registerForm = this._fb.group({
       name: ["", [Validators.required]],
@@ -59,22 +61,17 @@ export class RegisterComponent {
     }
 
     let user: User = {
-      id: 0,
       name: this.registerForm.value.name,
-      birthDate: this._datePipe.transform(this.registerForm.value.birthDate, "yyyy-dd-MM") || "",
+      birthDate: this._datePipe.transform(this.registerForm.value.birthDate, "yyyy-MM-dd") || "",
       email: this.registerForm.value.email,
       password: this.registerForm.value.password,
-      rol: 0,
-      createdDate: "",
-      image: "",
-      eliminado: 0
     }
-
-    console.log(user)
 
     this._userService.register(user).subscribe({
       next: ((response: any) => {
-        console.log(response)
+        if (parseInt(response.status) == 200) {
+          this._route.navigate(["/auth"])
+        }
       })
     })
 

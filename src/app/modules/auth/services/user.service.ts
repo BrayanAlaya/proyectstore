@@ -21,6 +21,14 @@ export class UserService {
     return this._http.post(this._dbUrl + "/user/login",user)
   }
 
+  sendAuthCode(user: User):Observable<any>{
+    return this._http.post(this._dbUrl + "/user/code/create-code", user)
+  }
+
+  authCode(user: User): Observable<any>{
+    return this._http.post(this._dbUrl + "/user/code", user)
+  }
+
   register(user: User): Observable<any>{
     return this._http.post(this._dbUrl + "/user/register",user)
   }

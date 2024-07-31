@@ -25,7 +25,7 @@
 
         </form>
         <div class="login__enlace">
-            <a mat-button routerLink="recover_password">Olvidaste tu Contraseña?</a>
+            <a mat-button routerLink="auth_code" [queryParams]="{action: 1}">Olvidaste tu Contraseña?</a>
             <a mat-button routerLink="register">Registrare Ahora!</a>
         </div>
     </mat-card>

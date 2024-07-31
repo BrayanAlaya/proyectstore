@@ -4,6 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {path: "", loadChildren: ()=> import("./pages/login/login.module").then(m => m.LoginModule)},
   {path: "register", loadChildren: ()=> import("./pages/register/register.module").then(m => m.RegisterModule)},
+  {path: "recover_password", loadChildren: ()=> import("./pages/forget/forget.module").then(m => m.ForgetModule)},
+  {path: "auth_account", loadChildren: ()=> import("./pages/auth_account/auth-account.module").then(m => m.AuthAccountModule)},
+  {path: "auth_code", loadChildren: ()=> import("./pages/auth-code/auth-code.module").then(m => m.AuthCodeModule)},
   {path: "**", redirectTo:"", pathMatch:"full"}
 ];
 

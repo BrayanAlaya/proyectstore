@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ForgetRoutingModule } from './forget-routing.module';
+import { AuthCodeRoutingModule } from './auth-code-routing.module';
+import { AuthCodeComponent } from './auth-code.component';
 import { NavbarModule } from '../../components/navbar/navbar.module';
-import { ForgetComponent } from './forget.component';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,11 +14,11 @@ import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
-    ForgetComponent
+    AuthCodeComponent
   ],
   imports: [
     CommonModule,
-    ForgetRoutingModule,
+    AuthCodeRoutingModule,
     NavbarModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -28,4 +28,4 @@ import { MatCardModule } from '@angular/material/card';
     MatCardModule
   ]
 })
-export class ForgetModule { }
+export class AuthCodeModule { }
