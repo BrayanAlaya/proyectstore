@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/core/models/User';
@@ -27,6 +27,15 @@ export class UserService {
 
   authCode(user: User): Observable<any>{
     return this._http.post(this._dbUrl + "/user/code", user)
+  }
+
+  confirmValidAuthAccoutn(token: any): Observable<any>{
+
+    const headers = new HttpHeaders({
+      'Authorization': token
+    })
+
+    return this._http.post(this._dbUrl + "/user/code/auth-account", null ,{headers: headers})
   }
 
   register(user: User): Observable<any>{

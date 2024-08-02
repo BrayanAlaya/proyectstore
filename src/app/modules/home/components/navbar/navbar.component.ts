@@ -16,7 +16,7 @@ const SLIDE_BUTTON = `<svg width="256px" height="256px" viewBox="0 0 24 24" fill
   styleUrls: ['./navbar.component.scss']
 })
 
-export class NavbarComponent implements OnChanges{
+export class NavbarComponent implements OnChanges,OnInit{
 
   public slide: boolean = false;
   public user!: User | null;
@@ -31,6 +31,10 @@ export class NavbarComponent implements OnChanges{
     iconRegistry.addSvgIconLiteral('search-button', sanitizer.bypassSecurityTrustHtml(SEARCH_BUTTON));
     iconRegistry.addSvgIconLiteral('slide-button', sanitizer.bypassSecurityTrustHtml(SLIDE_BUTTON));
 
+    this.user = this._userService.getLocalUSer();
+  }
+
+  ngOnInit(): void {
     this.user = this._userService.getLocalUSer();
   }
 
