@@ -29,13 +29,22 @@ export class UserService {
     return this._http.post(this._dbUrl + "/user/code", user)
   }
 
+  changePassword(user: User, token: any): Observable<any>{
+
+    const headers = new HttpHeaders({
+      'Authorization': token
+    })
+
+    return this._http.post(this._dbUrl + "/user/code/change-password", user, {headers: headers})
+  }
+
   confirmValidAuthAccoutn(token: any): Observable<any>{
 
     const headers = new HttpHeaders({
       'Authorization': token
     })
 
-    return this._http.post(this._dbUrl + "/user/code/auth-account", null ,{headers: headers})
+    return this._http.post(this._dbUrl + "/user/code/change-password", null ,{headers: headers})
   }
 
   register(user: User): Observable<any>{

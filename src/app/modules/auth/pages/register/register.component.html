@@ -50,8 +50,8 @@
 
         </form>
         <div class="register__enlace">
-            <a mat-button routerLink="/auth_code" [queryParams]="{action: 1}">Olvidaste tu Contraseña?</a>
-            <a mat-button routerLink="/auth/">Tienes cuenta? Registrate ahora!</a>
+            <a mat-button [routerLink]="['/auth/auth_code', 'password']">Olvidaste tu Contraseña?</a>
+            <a mat-button routerLink="/auth/">Tienes cuenta? Ingresa ahora!</a>
         </div>
     </mat-card>
 </div>

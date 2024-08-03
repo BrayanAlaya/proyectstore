@@ -51,11 +51,7 @@ export class LoginComponent {
         } else if(response.status == 401){
           localStorage.setItem("user", JSON.stringify(response.data))
           localStorage.setItem("token", response.token)
-          this._route.navigate(["/auth/auth_code"],{
-            queryParams: {
-              action: 2
-            }
-          })
+          this._route.navigate(["/auth/auth_code/account"])
         }else{
           this.validForm = false;
         } 

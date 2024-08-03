@@ -26,7 +26,6 @@ export class AuthAccountComponent implements OnInit {
     }
     this._userService.confirmValidAuthAccoutn(this.token).subscribe({
       next: (response: any) => {
-        console.log(response)
         if (parseInt(response.status) == 200) {
           this.tokenValid = true
           localStorage.removeItem("user")

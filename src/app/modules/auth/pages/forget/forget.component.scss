@@ -38,3 +38,21 @@
         height: 2.5rem;
     }
 }
+
+.recover__status{
+
+    text-align: start;
+    padding: 10px 0;
+    padding-left: 15px;
+    font-size: 1rem;
+
+    &--error{
+
+        background-color: rgba(red, 15%);
+        border-left: 10px solid red;
+    }
+    &--succes{
+        background-color: rgba(green, 15%);
+        border-left: 10px solid green;
+    }
+}

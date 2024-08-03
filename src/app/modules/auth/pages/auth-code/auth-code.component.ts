@@ -14,17 +14,16 @@ export class AuthCodeComponent implements OnInit {
   public emailValid: boolean | undefined = true
   public authCodeForm: FormGroup
   public validForm: boolean = true
-  public action: string | null;
   public codeSent: boolean = false
   public user: User | null | undefined;
-
   public codeValid: boolean = true
 
   constructor(
     private _fb: FormBuilder,
     private _userService: UserService,
     private _route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+
   ) {
     this.authCodeForm = this._fb.group({
       email: ["", [Validators.required, Validators.email]],
@@ -33,12 +32,12 @@ export class AuthCodeComponent implements OnInit {
       code3: ["", [Validators.required]],
       code4: ["", [Validators.required]],
     })
-    this.emailValid = this.authCodeForm.get("email")?.valid;
-    this.action = _route.snapshot.queryParamMap.get("action")
+
+    this.user = this._userService.getLocalUSer();
   }
 
   ngOnInit(): void {
-    this.user = this._userService.getLocalUSer();
+
     if (this.user != null) {
       this.authCodeForm.setValue({
         email: this.user.email,
@@ -47,6 +46,10 @@ export class AuthCodeComponent implements OnInit {
         code3: "",
         code4: "",
       })
+    }
+    this.emailValid = this.authCodeForm.get("email")?.valid;
+    if (this.emailValid) {
+      this.codeSent = true
     }
   }
 
@@ -65,22 +68,34 @@ export class AuthCodeComponent implements OnInit {
 
     this._userService.authCode(authUser).subscribe({
       next: (response: any) => {
-        console.log(response)
         if (parseInt(response.status) == 200) {
-          this._router.navigate(["/auth/auth_account"], {
-            queryParams: {
-              token: response.token
+          this._route.params.subscribe(a => {
+            switch (a["action"]) {
+              case "password":
+                this._router.navigate(["/auth/change_password"], {
+                  queryParams: {
+                    token: response.token
+                  }
+                })
+                break;
+              case "account":
+                this._router.navigate(["/auth/auth_account"], {
+                  queryParams: {
+                    token: response.token
+                  }
+                })
+                break;
+              default:
+                break;
             }
-          })
+          });
         } else if (parseInt(response.status) == 429) {
           this.codeValid = false
-        } else if (parseInt(response.status) == 400){
-
+        } else if (parseInt(response.status) == 400) {
+          
         }
       }
     })
-
-
   }
 
   sendCode(): void {

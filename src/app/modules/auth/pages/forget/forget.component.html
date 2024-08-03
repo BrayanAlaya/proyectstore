@@ -6,7 +6,12 @@
 
         <p class="recover__valid" *ngIf="!validForm">Email y constraseña incorrectos</p>
 
-        <form class="recover__form" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+        <form class="recover__form" (ngSubmit)="onSubmit()" [formGroup]="passwordForm">
+
+            <p *ngIf="passwordChanged == false" class="recover__status recover__status--error">Hubo un error, vuelve a intentarlo</p>
+            <p *ngIf="passwordChanged == true" class="recover__status recover__status--succes">Contraseña cambiada correctamente</p>
+            <p *ngIf="samePassword" class="recover__status recover__status--error">Las contraseñas no coinciden</p>
+            <p *ngIf="passwordValid" class="recover__status recover__status--error">Llenar campos obligatorios</p>
 
             <mat-form-field>
                 <mat-label>Contraseña</mat-label>
@@ -19,14 +24,14 @@
 
             <mat-form-field>
                 <mat-label>Confirmar Contraseña</mat-label>
-                <input matInput [type]="hidePasswordRepeat ? 'password' : 'text'" formControlName="password">
+                <input matInput [type]="hidePasswordRepeat ? 'password' : 'text'" formControlName="repeatPassword">
                 <button mat-icon-button matSuffix type="button" (click)="hidePasswordRepeat = !hidePasswordRepeat"
                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePasswordRepeat">
                     <mat-icon>{{hidePasswordRepeat ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
 
-            <button class="recover__button" mat-raised-button color="primary">Restablecer</button>
+            <button class="recover__button" mat-raised-button color="primary">Confirmar</button>
 
         </form>     
     </mat-card>

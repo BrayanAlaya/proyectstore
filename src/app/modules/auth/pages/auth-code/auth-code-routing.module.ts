@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthCodeComponent } from "./auth-code.component"
 
 const routes: Routes = [
-  {path: "", component: AuthCodeComponent}
+  {path: ":action", component: AuthCodeComponent}
 ];
 
 @NgModule({
