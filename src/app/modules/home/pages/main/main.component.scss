@@ -1,1 +1,45 @@
+.front {
 
+    color: white;
+    position: relative;
+    
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,6,41,1) 50%, rgba(0,1,49,1) 100%);
+    
+    overflow: hidden;
+    &__flex {
+        display: flex;
+        height: 40vh;
+    }
+
+    &__description {
+        position: relative;
+        z-index: 2;
+        margin: auto 0;
+
+    }
+
+    &__title {
+        font-size: 3rem;
+        @media (max-width:920px) {
+            font-size: 2rem;
+        }
+    }
+
+    &__slogan {
+        margin-top: 2rem;
+        font-size: 1.5rem;
+        line-height: 1.8;
+        @media (max-width:920px) {
+            font-size: 1.2rem;
+        }
+    }
+
+    &__image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        opacity: 0.3;
+        z-index: 0;
+    }
+}

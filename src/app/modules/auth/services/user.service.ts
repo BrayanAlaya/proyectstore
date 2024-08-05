@@ -59,6 +59,7 @@ export class UserService {
 
     return JSON.parse(localStorage.getItem("user") ?? "");
   }
+  
   getLocalToken():String | null  {
 
     return localStorage.getItem("token");

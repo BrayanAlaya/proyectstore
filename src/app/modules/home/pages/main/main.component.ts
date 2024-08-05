@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class MainComponent {
 
-
+  public imgBGHP: string = "../../../../../assets/bghp.webp"
   
 }
