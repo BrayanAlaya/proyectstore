@@ -2,11 +2,12 @@
 
     color: white;
     position: relative;
-    
-    background: rgb(0,0,0);
-    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,6,41,1) 50%, rgba(0,1,49,1) 100%);
-    
+
+    background: rgb(0, 0, 0);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 6, 41, 1) 50%, rgba(0, 1, 49, 1) 100%);
+
     overflow: hidden;
+
     &__flex {
         display: flex;
         height: 40vh;
@@ -21,6 +22,7 @@
 
     &__title {
         font-size: 3rem;
+
         @media (max-width:920px) {
             font-size: 2rem;
         }
@@ -30,6 +32,7 @@
         margin-top: 2rem;
         font-size: 1.5rem;
         line-height: 1.8;
+
         @media (max-width:920px) {
             font-size: 1.2rem;
         }
@@ -39,7 +42,79 @@
         position: absolute;
         inset: 0;
         width: 100%;
-        opacity: 0.3;
+        height: 100%;
+        opacity: 0.4;
         z-index: 0;
+    }
+}
+
+.categories {
+
+    &__title {
+        text-align: center;
+        font-size: 2rem;
+        padding: 2rem;
+        margin: 0;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 2rem;
+        margin-bottom: 3rem;
+        row-gap: 2rem;
+
+        @media (min-width: 920px) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+}
+
+.category {
+    padding: 1rem 1rem;
+    text-align: center;
+    border: 3px solid rgba(30, 23, 23, 0.098);
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+
+    &:hover {
+        color: blue;
+
+    }
+
+    &--vermas {
+        grid-column-start: 1;
+        grid-column-end: 3;
+
+        @media (min-width: 920px) {
+            grid-column-start: 2;
+            grid-column-end: 3;
+        }
+    }
+}
+
+.aboutus {
+
+    color: white;
+    text-align: center;
+    background-color: rgb(27, 27, 27);
+    width: 100%;
+
+    &__title {
+        font-size: 2rem;
+        margin: 0;
+
+        &--bg {
+            background-color: black;
+            padding: 1.7rem 0;
+        }
+    }
+
+    &__description {
+        padding: 2rem 4rem;
+        line-height: 1.7rem;
+        font-size: 1.3rem;
     }
 }

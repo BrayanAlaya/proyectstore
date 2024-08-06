@@ -1,13 +1,12 @@
 .navbar {
-    
-    
+
+
     @media (min-width:920px) {
-        height: 15vh;
+        height: 13vh;
     }
 
     &__title {
         margin: 0;
-        padding-left: 4px;
     }
 
     &__upper {
@@ -63,7 +62,7 @@
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
-        
+
         height: 2rem;
         gap: 1rem;
 
@@ -87,8 +86,8 @@
             text-decoration: none;
 
             overflow: hidden;
-            text-overflow: ellipsis; 
-            white-space: nowrap; 
+            text-overflow: ellipsis;
+            white-space: nowrap;
             font-size: 1rem;
 
             display: flex;
@@ -96,6 +95,7 @@
             align-items: center;
             transition: 0.3s;
             border-radius: 5px;
+            padding-left: 0;
 
             &:hover {
                 cursor: pointer;
@@ -110,6 +110,7 @@
                 color: black;
                 padding: 15px 10px;
                 border-radius: 0;
+                white-space: wrap;
 
                 &:hover {
                     cursor: pointer;
@@ -146,7 +147,6 @@
 .sidenav {
 
     display: none;
-
     position: relative;
 
     @media (max-width: 920px) {
@@ -184,6 +184,7 @@
     }
 
     position: absolute;
+    z-index: 7;
 
 
     &--in {
@@ -194,7 +195,7 @@
         align-items: flex-start;
         position: sticky;
         bottom: 0;
-        background-color: #0c1561;
+        background-color: #1a1a1a;
         width: 60%;
         padding: 2rem 2rem;
 

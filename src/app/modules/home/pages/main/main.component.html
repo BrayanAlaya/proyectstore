@@ -1,4 +1,3 @@
-
 <main>
 
     <div class="front">
@@ -8,11 +7,38 @@
                 <h1 class="front__title">ProyectStore</h1>
                 <p class="front__slogan">La plataforma donde los negocios fluyen</p>
             </div>
-    
+
             <img class="front__image" [src]="imgBGHP" alt="image">
         </div>
     </div>
 
+    <div class="categories">
+        <div class="categories__container container">
+            <h2 class="categories__title">Categorias</h2>
+            <div class="categories__grid">
+                <a *ngFor="let category of categories" class="category" routerLink="/auth">{{category.name}}</a>
+
+                <a class="category category--vermas" routerLink="">Ver más</a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="aboutus">
+        <div class="aboutus__title--bg">
+            <div class="container">
+                <h2 class="aboutus__title">Sobre ProjectStore</h2>
+            </div>
+        </div>
+        <div class="container">
+            <p class="aboutus__description">ProjectStore es una plataforma de marketplace diseñada para
+                permitir a los
+                usuarios vender y comprar productos de manera eficiente y segura. La plataforma está diseñada para ser
+                fácil
+                de usar y accesible, ofreciendo una experiencia de usuario optimizada tanto para vendedores como para
+                compradores.</p>
+        </div>
+    </div>
+
+
 </main>
-
-

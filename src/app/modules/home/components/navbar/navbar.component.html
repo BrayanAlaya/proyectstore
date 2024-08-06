@@ -37,10 +37,7 @@
 
             <button class="navbar__user__optionsName" [matMenuTriggerFor]="menu">Categorias</button>
             <mat-menu #menu="matMenu">
-                <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Categoria 2</a>
-                <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Categoria 3</a>
-                <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Categoria 4</a>
-                <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Categoria 5</a>
+                <a *ngFor="let category of categories" class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">{{category.name}}</a>
             </mat-menu>
 
             <a class="navbar__user__optionsName" routerLink="">Vender</a>
@@ -71,8 +68,8 @@
 
         <div class="navbar__user">
 
-            <a *ngIf="user == null" class="navbar__user__optionsName" routerLink="/auth/register">Register</a>
-            <a *ngIf="user == null" class="navbar__user__optionsName" routerLink="/auth">Log In</a>
+            <a *ngIf="user == null" class="navbar__user__optionsName" href="/auth/register">Register</a>
+            <a *ngIf="user == null" class="navbar__user__optionsName" href="/auth">Log In</a>
 
             <a *ngIf="user != null" class="navbar__user__optionsName" routerLink="">{{user!.name}}</a>
             <img *ngIf="user != null" class="navbar__user__image"

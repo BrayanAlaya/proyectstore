@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
 
-  public _dbUrl: string
+  private _dbUrl: string
 
   constructor(
     private _http: HttpClient 
