@@ -4,10 +4,9 @@ import { HomeComponent } from './home.component';
 import { MainComponent } from './pages/main/main.component';
 
 const routes: Routes = [
-  // {path: "", component: HomeComponent ,loadChildren: () => import("./pages/main/main.module").then(m => m.MainModule)}
   {
     path: "", component: HomeComponent, children: [
-      {path: "", component: MainComponent}
+      {path: "", loadChildren: () => import("./pages/main/main.module").then(m => m.MainModule)}
     ]
   }
 

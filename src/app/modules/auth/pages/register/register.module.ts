@@ -20,7 +20,6 @@ import { MatNativeDateModule } from '@angular/material/core';
   imports: [
     CommonModule,
     RegisterRoutingModule,
-    NavbarModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatIconModule,

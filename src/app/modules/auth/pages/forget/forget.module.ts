@@ -19,7 +19,6 @@ import { MatCardModule } from '@angular/material/card';
   imports: [
     CommonModule,
     ForgetRoutingModule,
-    NavbarModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatIconModule,

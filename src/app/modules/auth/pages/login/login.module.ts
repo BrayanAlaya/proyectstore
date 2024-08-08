@@ -20,7 +20,6 @@ import { MatCardModule } from '@angular/material/card';
   imports: [
     CommonModule,
     LoginRoutingModule,
-    NavbarModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatIconModule,

@@ -12,7 +12,6 @@ import { AuthAccountRoutingModule } from './auth-account-routing.module';
   imports: [
     CommonModule,
     AuthAccountRoutingModule,
-    NavbarModule
   ]
 })
 export class AuthAccountModule { }
