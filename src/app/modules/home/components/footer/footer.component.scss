@@ -1,0 +1,32 @@
+
+.footer{
+    color: white;
+    background-color: black;
+    padding: 2rem 0;
+    &__seccion{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 1rem;
+        margin-bottom: 2rem;
+        @media (min-width: 920px) {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    &__title{
+        margin: 0;
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+    &__parrafo{
+        margin: 0;
+    }
+    &__enlace{
+        color: white;
+    }
+    &__bottom{
+        text-align: center;
+    }
+    
+}
