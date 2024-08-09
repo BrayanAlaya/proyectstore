@@ -14,15 +14,18 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     NavbarComponent
-  ],  
+  ],
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
+    ReactiveFormsModule,
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
@@ -32,7 +35,6 @@ import {MatListModule} from '@angular/material/list';
     MatToolbarModule,
     MatInputModule,
     MatListModule,
-    ReactiveFormsModule
   ],
   exports: [
     NavbarComponent

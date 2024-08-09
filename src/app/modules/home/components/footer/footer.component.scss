@@ -3,6 +3,8 @@
     color: white;
     background-color: black;
     padding: 2rem 0;
+    position: sticky;
+    z-index: 999;
     &__seccion{
         display: grid;
         grid-template-columns: repeat(2, 1fr);

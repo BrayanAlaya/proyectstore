@@ -1,5 +1,7 @@
 .navbar {
 
+    position: sticky;
+    z-index: 999;
 
     @media (min-width:920px) {
         height: 13vh;
@@ -7,6 +9,9 @@
 
     &__title {
         margin: 0;
+        &:hover{
+            cursor: pointer;
+        }
     }
 
     &__upper {
@@ -158,8 +163,12 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        height: 2rem;
-        padding: 1rem 2rem;
+        height: 4vh;    
+        @media (min-width: 920px) {
+            height: auto;
+        }
+        padding: 1rem 1rem;
+        padding-left: 0.5rem;
     }
 
     &__button {

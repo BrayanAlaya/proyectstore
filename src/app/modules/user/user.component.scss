@@ -1,0 +1,16 @@
+
+.sidevar{
+
+    display: flex;
+    height: 95vh;
+    gap: 2%;
+    overflow: hidden;
+
+    &__side{
+        flex: 3rem;
+    }
+
+    &__content{
+        flex: 100%;
+    }   
+}

@@ -6,7 +6,8 @@ import { MainComponent } from './pages/main/main.component';
 const routes: Routes = [
   {
     path: "", component: HomeComponent, children: [
-      {path: "", loadChildren: () => import("./pages/main/main.module").then(m => m.MainModule)}
+      {path: "", loadChildren: () => import("./pages/main/main.module").then(m => m.MainModule)},
+      {path: "user", loadChildren: () => import("../user/user.module").then(m => m.UserModule)}
     ]
   }
 

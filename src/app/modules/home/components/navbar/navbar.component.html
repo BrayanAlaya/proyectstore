@@ -1,7 +1,8 @@
 <header class="navbar">
     <div class="navbar--pc container">
         <div class="navbar__upper">
-            <h2 routerLink="" class="navbar__title">ProyectStore</h2>
+            
+            <h2 routerLink="/" class="navbar__title">ProyectStore</h2>
 
             <div class="navbar__search">
                 <input class="navbar__search__input" placeholder="Buscar" #searchInput type="text">
@@ -10,15 +11,14 @@
             </div>
 
             <div class="navbar__user">
+                <a *ngIf="user == null" class="navbar__user__optionsName" routerLink="/auth/register">Register</a>
+                <a *ngIf="user == null" class="navbar__user__optionsName" routerLink="/auth">Log In</a>
 
-                <a *ngIf="user == null" class="navbar__user__optionsName" href="/auth/register">Register</a>
-                <a *ngIf="user == null" class="navbar__user__optionsName" href="/auth">Log In</a>
-
-                <button *ngIf="user != null" routerLink="" class="navbar__user__optionsName"
+                <button *ngIf="user != null" class="navbar__user__optionsName"
                     [matMenuTriggerFor]="menuUser">{{user!.name}}</button>
                 <mat-menu #menuUser="matMenu">
-                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Mi cuenta</a>
-                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Ajustes</a>
+                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="/user">Mi cuenta</a>
+                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="/user/ajustes">Ajustes</a>
                     <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Vender</a>
                     <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Historial</a>
                     <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Mis productos</a>
@@ -49,7 +49,7 @@
 
         <div class="sidenav__buttonTitle">
             <button class="sidenav__button" (click)="slide = true"><mat-icon svgIcon="slide-button"></mat-icon></button>
-            <h1 class="sidenav__title">MercadoFree</h1>
+            <h1 routerLink="/" class="sidenav__title">ProyectStore</h1>
         </div>
 
     </div>
@@ -68,10 +68,10 @@
 
         <div class="navbar__user">
 
-            <a *ngIf="user == null" class="navbar__user__optionsName" href="/auth/register">Register</a>
-            <a *ngIf="user == null" class="navbar__user__optionsName" href="/auth">Log In</a>
+            <a *ngIf="user == null" class="navbar__user__optionsName" routerLink="/auth/register">Register</a>
+            <a *ngIf="user == null" class="navbar__user__optionsName" routerLink="/auth">Log In</a>
 
-            <a *ngIf="user != null" class="navbar__user__optionsName" routerLink="">{{user!.name}}</a>
+            <a *ngIf="user != null" class="navbar__user__optionsName" routerLink="/user" (click)="slide = false">{{user!.name}}</a>
             <img *ngIf="user != null" class="navbar__user__image"
                 src="{{user!.image == null ? 'assets/userUnknow.jpg':''}}" alt="Descripción de la imagen">
         </div>

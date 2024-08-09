@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidevarComponent } from './sidevar.component';
-
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -9,7 +10,9 @@ import { SidevarComponent } from './sidevar.component';
     SidevarComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatIconModule,
+    RouterModule
   ],
   exports: [
     SidevarComponent
