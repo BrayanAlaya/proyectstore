@@ -62,7 +62,7 @@ export class RegisterComponent {
 
     let user: User = {
       name: this.registerForm.value.name,
-      birthDate: this._datePipe.transform(this.registerForm.value.birthDate, "yyyy-MM-dd") || "",
+      birthdate: this._datePipe.transform(this.registerForm.value.birthDate, "yyyy-MM-dd") || "",
       email: this.registerForm.value.email,
       password: this.registerForm.value.password,
     }

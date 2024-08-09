@@ -59,13 +59,6 @@
 
     <div class="slide--in">
 
-        <div class="navbar__search">
-            <input class="navbar__search__input" #searchInput placeholder="Buscar" type="text">
-            <a class="navbar__search__button" (click)="searchInput.focus()" routerLink=""><mat-icon
-                    svgIcon="search-button" aria-hidden="false"></mat-icon></a>
-        </div>
-
-
         <div class="navbar__user">
 
             <a *ngIf="user == null" class="navbar__user__optionsName" routerLink="/auth/register">Register</a>

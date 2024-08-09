@@ -1,7 +1,7 @@
 .navbar {
 
     position: sticky;
-    z-index: 999;
+    z-index: 997;
 
     @media (min-width:920px) {
         height: 13vh;
@@ -163,6 +163,8 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
+        position: sticky;
+        z-index: 998;
         height: 4vh;    
         @media (min-width: 920px) {
             height: auto;
@@ -190,10 +192,12 @@
 
     &--action {
         display: flex;
+        padding-top: 5vh;
     }
 
     position: absolute;
     z-index: 7;
+    height: 100%;
 
 
     &--in {
@@ -202,8 +206,8 @@
         justify-content: flex-start;
         gap: 2rem;
         align-items: flex-start;
-        position: sticky;
         bottom: 0;
+        height: 100%;
         background-color: #1a1a1a;
         width: 60%;
         padding: 2rem 2rem;
@@ -213,13 +217,14 @@
     &--out {
         background-color: rgba(black, 0.3);
         height: 100%;
-        width: 100%;
+        display: flex;
+        padding: 2rem 2rem;
+        width: 40%;
     }
 
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
 
 
     &__menu {

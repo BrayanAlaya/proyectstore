@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { FormBuilder } from '@angular/forms';
@@ -18,7 +18,7 @@ const SLIDE_BUTTON = `<svg width="256px" height="256px" viewBox="0 0 24 24" fill
   styleUrls: ['./navbar.component.scss']
 })
 
-export class NavbarComponent implements OnChanges,OnInit{
+export class NavbarComponent implements DoCheck,OnInit{
 
   public slide: boolean = false;
   public user!: User | null;
@@ -35,11 +35,9 @@ export class NavbarComponent implements OnChanges,OnInit{
     iconRegistry.addSvgIconLiteral('search-button', sanitizer.bypassSecurityTrustHtml(SEARCH_BUTTON));
     iconRegistry.addSvgIconLiteral('slide-button', sanitizer.bypassSecurityTrustHtml(SLIDE_BUTTON));
 
-    this.user = this._userService.getLocalUSer();
   }
 
   ngOnInit(): void {
-    this.user = this._userService.getLocalUSer();
     this._categoryService.get().subscribe({
       next: (r => {
         this.categories = r.data
@@ -47,14 +45,13 @@ export class NavbarComponent implements OnChanges,OnInit{
     })
   }
 
-  ngOnChanges(): void {
+  ngDoCheck(): void {
     this.user = this._userService.getLocalUSer();
   }
 
   logOut(): void{
     localStorage.removeItem("user")
     localStorage.removeItem("token")
-    this.user = this._userService.getLocalUSer();
   }
 
 }

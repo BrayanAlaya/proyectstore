@@ -11,7 +11,6 @@ export class SidevarComponent {
   public slide: boolean = false;
 
   slideAction(): void{
-    console.log(this.slide)
     this.slide = !this.slide
   }
 }
