@@ -43,6 +43,7 @@ export class LoginComponent {
       next: (response: any) => {
         if (response.status == 200) {
           this.validForm = true;
+
           localStorage.setItem("user", JSON.stringify(response.data))
           localStorage.setItem("token", response.token)
 
