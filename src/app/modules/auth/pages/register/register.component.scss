@@ -11,9 +11,22 @@
     &__valid {
         margin-bottom: 1rem;
         text-align: start;
-        border-left: 10px solid darken(red, 15%);
-        padding: 0.5rem 1rem;
-        background-color: rgba(red, 0.3);
+        height: 1.7rem;
+        font-size: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0.5rem 0;
+        padding-left: 1rem;
+
+        &--success{
+            background-color: rgba(green, 0.3);
+            border-left: 10px solid darken(green, 15%);
+        }
+        &--error{
+            background-color: rgba(red, 0.3);
+            border-left: 10px solid darken(red, 15%);
+        }
     }
 
     &__form {

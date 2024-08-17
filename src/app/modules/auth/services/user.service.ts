@@ -57,6 +57,7 @@ export class UserService {
   }
 
   register(user: User): Observable<any>{
+    console.log(user)
     return this._http.post(this._dbUrl + "/user/register",user)
   }
 

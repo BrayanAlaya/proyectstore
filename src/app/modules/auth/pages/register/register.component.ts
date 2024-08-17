@@ -17,10 +17,9 @@ export class RegisterComponent {
   public registerForm: FormGroup
   public hide = true;
   public hide2 = true;
-  public dateValid: boolean = true;
   public emailValid: boolean | undefined = true;
-  public passwordValid: boolean = true;
-  public validForm: boolean = true
+  public statusMessage: string = ""
+  public status: boolean | undefined
 
   constructor(
     private _fb: FormBuilder,
@@ -31,7 +30,7 @@ export class RegisterComponent {
   ) {
     this.registerForm = this._fb.group({
       name: ["", [Validators.required]],
-      birthDate: ["", [Validators.required]],
+      birthdate: ["", [Validators.required]],
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required]],
       password2: ["", [Validators.required]]
@@ -42,35 +41,54 @@ export class RegisterComponent {
   onSubmit(): void {
 
     // console.log(this._datePipe.transform(this.registerForm.value.birthDate, "yyyy/MM/dd"))
-    
+
+    if (!this.registerForm.valid) {
+      this.status = false;
+      this.statusMessage = "Llenar todos lo campos correctamente"
+      return
+    } else {
+      this.status = undefined
+      this.statusMessage = ""
+    }
+
     // return;
-    if (this._clases.calcularEdad(this.registerForm.value.birthDate) < 18) {
-      this.dateValid = false;
-    } else{
-      this.dateValid = true;
+    if (this._clases.calcularEdad(this.registerForm.value.birthdate) < 18) {
+      this.status = false;
+      this.statusMessage = "Obligatorio ser mayor de edad"
+      return
+    } else {
+      this.status = undefined;
+      this.statusMessage = ""
     }
-    
+
     if (this.registerForm.value.password != this.registerForm.value.password2) {
-      this.passwordValid = false;
-    } else{
-      this.passwordValid = true
-    }
-    
-    if (!this.registerForm.valid || !this.dateValid || !this.passwordValid) {
-      return;
+      this.status = false;
+      this.statusMessage = "Las contraseñas no coinciden"
+      return
+    } else {
+      this.status = undefined
+      this.statusMessage = ""
     }
 
     let user: User = {
       name: this.registerForm.value.name,
-      birthdate: this._datePipe.transform(this.registerForm.value.birthDate, "yyyy-MM-dd") || "",
+      birthdate: this._datePipe.transform(this.registerForm.value.birthdate, "yyyy-MM-dd") || "",
       email: this.registerForm.value.email,
       password: this.registerForm.value.password,
     }
 
     this._userService.register(user).subscribe({
       next: ((response: any) => {
+        console.log(response)
         if (parseInt(response.status) == 200) {
-          this._route.navigate(["/auth"])
+          this.status = true;
+          this.statusMessage = "Registrado correctamente"
+        } else if (parseInt(response.status) == 409) {
+          this.status = false;
+          this.statusMessage = "Email existente"
+        } else {
+          this.status = false;
+          this.statusMessage = "Hubo un error al registrar, vuelve a intentar"
         }
       })
     })

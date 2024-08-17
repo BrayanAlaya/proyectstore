@@ -2,9 +2,7 @@
     <mat-card class="register__card">
         <h2 class="register__title">Registrate</h2>
 
-        <p class="register__valid" *ngIf="!validForm">Email y constraseña incorrectos</p>
-        <p class="register__valid" *ngIf="!dateValid">Debe ser mayor de edad</p>
-        <p class="register__valid" *ngIf="!passwordValid">Contraseñas no ooinciden</p>
+        <p class="register__valid" [ngClass]="[status == true ? 'register__valid--success' : '',status == false ? 'register__valid--error' : '',status == undefined ? '' : '']">{{statusMessage}}</p>
 
         <form class="register__form" (ngSubmit)="onSubmit()" [formGroup]="registerForm">
 
