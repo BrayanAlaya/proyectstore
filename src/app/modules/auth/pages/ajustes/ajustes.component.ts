@@ -13,14 +13,14 @@ import { clases } from 'src/app/core/Clases';
     clases
   ]
 })
-export class AjustesComponent implements DoCheck, OnInit{
+export class AjustesComponent implements DoCheck, OnInit {
 
   public ajustesForm: FormGroup
   public user: User | null
   public srcImage: string = "../../../../../assets/userUnknow.jpg"
   public imageFileNew: any
   public dateValid: boolean | undefined;
-  public token: String | null;
+  private token: String | null;
   public status: boolean | undefined
 
   constructor(
@@ -33,22 +33,20 @@ export class AjustesComponent implements DoCheck, OnInit{
     this.ajustesForm = _fb.group({
       name: [this.user?.name, [Validators.required]],
       email: [this.user?.email],
-      birthdate: [new Date(this.user?.birthdate?.replace("Z", "") ?? "") ],
-      image: [""],
+      birthdate: [new Date(this.user?.birthdate?.replace("Z", "") ?? "")],
     })
   }
 
   ngOnInit(): void {
-    if (this.user?.image == null) {
-      // this.srcImage = global.url + "avatar/" + this.user["image"]
-    } else{
-      this.srcImage = "../../../assets/images/user-default.png"
-    }
+
   }
 
   ngDoCheck(): void {
-    this.user = this._userService.getLocalUSer();
-    this.token = this._userService.getLocalToken();
+    if (this.user?.image != null) {
+      this.srcImage = this.user?.image
+    } else {
+      this.srcImage = "../../../../../assets/userUnknow.jpg"
+    }
   }
 
   onSubmit(): void {
@@ -57,35 +55,38 @@ export class AjustesComponent implements DoCheck, OnInit{
       return;
     }
 
-    let user: User = {
-      name: this.ajustesForm.value.name
+    const user: FormData = new FormData()
+    user.append("name", this.ajustesForm.value.name)
+    if (this.imageFileNew != undefined) {
+      user.append("image", this.imageFileNew)
     }
 
     this.updateUser(user)
-    
-    
+
   }
 
-  updateUser(user: User){
+  updateUser(user: FormData) {
     this._userService.update(user, this.token).subscribe({
       next: ((response: any) => {
         if (parseInt(response.status) == 200) {
           localStorage.setItem("user", JSON.stringify(response.data))
           localStorage.setItem("token", response.token)
+          this.user = this._userService.getLocalUSer();
+          this.token = this._userService.getLocalToken();
           this.status = true
-        } else{
+        } else if (parseInt(response.status) == 500) {
           this.status = false
         }
       })
     })
   }
-  
+
   uploadimage(e: any): void {
     if (e.target.files.length > 0) {
       var reader = new FileReader();
       reader.readAsDataURL(e.target.files[0])
       reader.onload = (event: any) => {
-        this.srcImage = event.target.result;
+        this.user!.image = event.target.result
       }
       this.imageFileNew = e.target.files[0];
     }

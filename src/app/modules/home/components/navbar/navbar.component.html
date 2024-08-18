@@ -1,7 +1,7 @@
 <header class="navbar">
     <div class="navbar--pc container">
         <div class="navbar__upper">
-            
+
             <h2 routerLink="/" class="navbar__title">ProyectStore</h2>
 
             <div class="navbar__search">
@@ -17,19 +17,24 @@
                 <button *ngIf="user != null" class="navbar__user__optionsName"
                     [matMenuTriggerFor]="menuUser">{{user!.name}}</button>
                 <mat-menu #menuUser="matMenu">
-                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="/user">Mi cuenta</a>
-                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="/user/ajustes">Ajustes</a>
+                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="/user">Mi
+                        cuenta</a>
+                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
+                        routerLink="/user/ajustes">Ajustes</a>
                     <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Vender</a>
-                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Historial</a>
-                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Mis productos</a>
-                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Notificaciones</a>
-                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Favoritos</a>
+                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
+                        routerLink="">Historial</a>
+                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Mis
+                        productos</a>
+                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
+                        routerLink="">Notificaciones</a>
+                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
+                        routerLink="">Favoritos</a>
                     <button *ngIf="user != null" class="navbar__user__optionsName navbar__user__optionsName--categorias"
                         (click)="logOut()">Log out</button>
                 </mat-menu>
 
-                <img *ngIf="user != null" class="navbar__user__image"
-                    src="{{user!.image == null ? 'assets/userUnknow.jpg':''}}" alt="Descripción de la imagen">
+                <img *ngIf="user != null" class="navbar__user__image" [src]="srcImage" alt="">
             </div>
         </div>
 
@@ -37,7 +42,9 @@
 
             <button class="navbar__user__optionsName" [matMenuTriggerFor]="menu">Categorias</button>
             <mat-menu #menu="matMenu">
-                <a *ngFor="let category of categories" class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">{{category.name}}</a>
+                <a *ngFor="let category of categories"
+                    class="navbar__user__optionsName navbar__user__optionsName--categorias"
+                    routerLink="">{{category.name}}</a>
             </mat-menu>
 
             <a class="navbar__user__optionsName" routerLink="">Vender</a>
@@ -64,9 +71,9 @@
             <a *ngIf="user == null" class="navbar__user__optionsName" routerLink="/auth/register">Register</a>
             <a *ngIf="user == null" class="navbar__user__optionsName" routerLink="/auth">Log In</a>
 
-            <a *ngIf="user != null" class="navbar__user__optionsName" routerLink="/user" (click)="slide = false">{{user!.name}}</a>
-            <img *ngIf="user != null" class="navbar__user__image"
-                src="{{user!.image == null ? 'assets/userUnknow.jpg':''}}" alt="Descripción de la imagen">
+            <a *ngIf="user != null" class="navbar__user__optionsName" routerLink="/user"
+                (click)="slide = false">{{user!.name}}</a>
+            <img *ngIf="user != null" class="navbar__user__image" [src]="srcImage" alt="">
         </div>
 
         <div class="slide__menu">

@@ -21,10 +21,10 @@ export class UserService {
     return this._http.post(this._dbUrl + "/user/login",user)
   }
 
-  update(user: User, token: any): Observable<any>{
+  update(user: FormData, token: any): Observable<any>{
 
     const headers = new HttpHeaders({
-      "Authorization": token
+      "Authorization": token,
     })
 
     return this._http.put(this._dbUrl + "/user/update", user, {headers: headers})

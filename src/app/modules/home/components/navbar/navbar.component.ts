@@ -23,6 +23,7 @@ export class NavbarComponent implements DoCheck,OnInit{
   public slide: boolean = false;
   public user!: User | null;
   public categories: Array<Category> = []
+  public srcImage: String = "assets/userUnknow.jpg"
 
   constructor(
     private _formBuilder: FormBuilder, 
@@ -47,6 +48,11 @@ export class NavbarComponent implements DoCheck,OnInit{
 
   ngDoCheck(): void {
     this.user = this._userService.getLocalUSer();
+    if (this.user?.image != null) {
+      this.srcImage = this.user?.image
+    } else {
+      this.srcImage = "../../../../../assets/userUnknow.jpg"
+    }
   }
 
   logOut(): void{

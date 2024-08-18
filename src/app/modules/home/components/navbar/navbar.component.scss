@@ -9,7 +9,8 @@
 
     &__title {
         margin: 0;
-        &:hover{
+
+        &:hover {
             cursor: pointer;
         }
     }
@@ -76,9 +77,10 @@
         }
 
         &__image {
-            height: 100%;
-            border-radius: 100%;
-            border: 1.5px solid black;
+            height: 2.3rem;
+            border-radius: 50%;
+            width: 2.3rem;
+            object-fit: cover;
         }
 
         &__optionsName {
@@ -165,10 +167,12 @@
         align-items: flex-start;
         position: sticky;
         z-index: 998;
-        height: 4vh;    
+        height: 4vh;
+
         @media (min-width: 920px) {
             height: auto;
         }
+
         padding: 1rem 1rem;
         padding-left: 0.5rem;
     }
