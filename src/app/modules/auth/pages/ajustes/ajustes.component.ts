@@ -1,9 +1,9 @@
-import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, OnInit, } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/core/models/User';
 import { UserService } from '../../services/user.service';
-import * as moment from 'moment';
 import { clases } from 'src/app/core/Clases';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-ajustes',
@@ -22,6 +22,7 @@ export class AjustesComponent implements DoCheck, OnInit {
   public dateValid: boolean | undefined;
   private token: String | null;
   public status: boolean | undefined
+  public s3Url: string = environment.s3url
 
   constructor(
     private _fb: FormBuilder,
@@ -43,7 +44,7 @@ export class AjustesComponent implements DoCheck, OnInit {
 
   ngDoCheck(): void {
     if (this.user?.image != null) {
-      this.srcImage = this.user?.image
+      this.srcImage = this.s3Url + this.user?.image
     } else {
       this.srcImage = "../../../../../assets/userUnknow.jpg"
     }
@@ -55,25 +56,30 @@ export class AjustesComponent implements DoCheck, OnInit {
       return;
     }
 
-    const user: FormData = new FormData()
-    user.append("name", this.ajustesForm.value.name)
-    if (this.imageFileNew != undefined) {
-      user.append("image", this.imageFileNew)
-    }
+    const ajustesFormUpdate: FormData = new FormData()
+    ajustesFormUpdate.append("name", this.ajustesForm.value.name)
+    ajustesFormUpdate.append("image", this.imageFileNew)
 
-    this.updateUser(user)
+    this.updateUser(ajustesFormUpdate)
 
+  }
+
+  deleteImage(): void {
+    this.imageFileNew = "delete"
+    this.user!.image = undefined
   }
 
   updateUser(user: FormData) {
     this._userService.update(user, this.token).subscribe({
       next: ((response: any) => {
         if (parseInt(response.status) == 200) {
+          console.log(response)
           localStorage.setItem("user", JSON.stringify(response.data))
           localStorage.setItem("token", response.token)
           this.user = this._userService.getLocalUSer();
           this.token = this._userService.getLocalToken();
           this.status = true
+          this.s3Url = environment.s3url
         } else if (parseInt(response.status) == 500) {
           this.status = false
         }
@@ -86,6 +92,7 @@ export class AjustesComponent implements DoCheck, OnInit {
       var reader = new FileReader();
       reader.readAsDataURL(e.target.files[0])
       reader.onload = (event: any) => {
+        this.s3Url = ""
         this.user!.image = event.target.result
       }
       this.imageFileNew = e.target.files[0];

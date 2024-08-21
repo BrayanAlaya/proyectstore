@@ -7,7 +7,8 @@ const routes: Routes = [
     path: "", component: UserComponent, children: [
       {path: "", loadChildren: ()=> import("./pages/homeuser/homeuser.module").then(m => m.HomeuserModule)},
       {path: "ajustes", loadChildren: ()=> import("../auth/pages/ajustes/ajustes.module").then(m => m.AjustesModule)},
-      // {path: "sell"},
+      {path: "sell", loadChildren: ()=> import("../products/pages/vender/vender.module").then(m => m.VenderModule)},
+      {path: "sell-list", loadChildren: ()=> import("../products/pages/list-products/list-products.module").then(m => m.ListProductsModule)},
       // {path: "notifications"},
       // {path: "wishlist"},
       // {path: "purchases"},

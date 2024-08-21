@@ -38,9 +38,12 @@
 
                 <input style="display: none;" class="form-control" accept="image/*" #imageUserUploader type="file"
                     (change)="uploadimage($event)">
-                <button class="ajustes__button" mat-raised-button target="_blank" type="button"
-                    (click)="imageUserUploader.click()">Subir Imagen</button>
-
+                <div class="ajustes__button--div">
+                    <button class="" mat-raised-button target="_blank" type="button"
+                        (click)="imageUserUploader.click()">Subir Imagen</button>
+                    <button class="" mat-raised-button color="warn" type="button"
+                        (click)="deleteImage()">Eliminar Imagen</button>
+                </div>
             </fieldset>
             <button class="ajustes__button ajustes__button--submit" mat-raised-button color="primary">Guardar
                 Cambios</button>

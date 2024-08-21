@@ -6,7 +6,7 @@ import { UserService } from 'src/app/modules/auth/services/user.service';
 import { User } from 'src/app/core/models/User';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { Category } from 'src/app/core/models/Category';
-import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 const SEARCH_BUTTON = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16.6725 16.6412L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`;
 
@@ -18,16 +18,18 @@ const SLIDE_BUTTON = `<svg width="256px" height="256px" viewBox="0 0 24 24" fill
   styleUrls: ['./navbar.component.scss']
 })
 
-export class NavbarComponent implements DoCheck,OnInit{
+export class NavbarComponent implements DoCheck, OnInit {
 
   public slide: boolean = false;
   public user!: User | null;
   public categories: Array<Category> = []
   public srcImage: String = "assets/userUnknow.jpg"
+  public s3Url: string = environment.s3url
+
 
   constructor(
-    private _formBuilder: FormBuilder, 
-    private iconRegistry: MatIconRegistry, 
+    private _formBuilder: FormBuilder,
+    private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
     private _userService: UserService,
     private _categoryService: CategoryService
@@ -49,13 +51,13 @@ export class NavbarComponent implements DoCheck,OnInit{
   ngDoCheck(): void {
     this.user = this._userService.getLocalUSer();
     if (this.user?.image != null) {
-      this.srcImage = this.user?.image
+      this.srcImage = this.s3Url + this.user?.image
     } else {
       this.srcImage = "../../../../../assets/userUnknow.jpg"
     }
   }
 
-  logOut(): void{
+  logOut(): void {
     localStorage.removeItem("user")
     localStorage.removeItem("token")
   }
