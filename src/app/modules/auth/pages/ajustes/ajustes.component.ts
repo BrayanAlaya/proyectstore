@@ -96,6 +96,7 @@ export class AjustesComponent implements DoCheck, OnInit {
         this.user!.image = event.target.result
       }
       this.imageFileNew = e.target.files[0];
+      console.log(this.imageFileNew)
     }
   }
 }
