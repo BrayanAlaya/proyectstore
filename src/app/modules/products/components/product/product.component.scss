@@ -1,0 +1,62 @@
+
+.product{
+
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+
+    &__image{
+        width: 230px;
+        object-fit: cover;
+        height: 9rem;
+        cursor: pointer;
+    }
+
+    &__info{
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: space-between;
+        &--title{
+            cursor: pointer;
+            font-weight: 400;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 61px;
+        }
+        &--price{
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        &--stock{
+            font-size: 1.05rem;
+            margin: 0;
+
+            &--avalible{
+                color: rgb(0, 193, 0);
+            }
+            &--out{
+                color: rgb(150, 0, 0);
+            }
+
+            &--flex{
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+
+    &__actions{
+        @media (max-width: 920px) {
+            display: none;
+        }
+
+        display: flex;
+        flex-direction: column;
+        width: 220px;
+        justify-content: center;
+        gap: 1rem;
+    }
+}

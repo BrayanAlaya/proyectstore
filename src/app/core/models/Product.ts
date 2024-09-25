@@ -2,7 +2,7 @@ export interface Product {
     id?: number,
     name?: string,
     stock?: number,
-    image?: Array<string>,
+    image?: Array<string> | string,
     price?: number,
     description?: string,
     createdDate?: string,

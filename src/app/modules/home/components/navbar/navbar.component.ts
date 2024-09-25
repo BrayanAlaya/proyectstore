@@ -1,12 +1,16 @@
-import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { FormBuilder } from '@angular/forms';
 import { UserService } from 'src/app/modules/auth/services/user.service';
 import { User } from 'src/app/core/models/User';
 import { CategoryService } from 'src/app/shared/services/category.service';
-import { Category } from 'src/app/core/models/Category';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/states/app.state';
+import { selectCategories } from 'src/app/states/category/category.selectors';
+import { Router } from '@angular/router';
 
 const SEARCH_BUTTON = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16.6725 16.6412L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`;
 
@@ -22,17 +26,20 @@ export class NavbarComponent implements DoCheck, OnInit {
 
   public slide: boolean = false;
   public user!: User | null;
-  public categories: Array<Category> = []
   public srcImage: String = "assets/userUnknow.jpg"
   public s3Url: string = environment.s3url
 
+  public categories$: Observable<any> = new Observable()
+  public searchInputValue: string = ""
 
   constructor(
     private _formBuilder: FormBuilder,
     private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
     private _userService: UserService,
-    private _categoryService: CategoryService
+    private _categoryService: CategoryService,
+    private _store: Store<AppState>,
+    private _route: Router
   ) {
 
     iconRegistry.addSvgIconLiteral('search-button', sanitizer.bypassSecurityTrustHtml(SEARCH_BUTTON));
@@ -40,12 +47,22 @@ export class NavbarComponent implements DoCheck, OnInit {
 
   }
 
-  ngOnInit(): void {
-    this._categoryService.get().subscribe({
-      next: (r => {
-        this.categories = r.data
+  search(): void {
+
+    if (this.searchInputValue != "") {
+      this._route.navigate(["/products"], {
+        queryParams: {
+          name: this.searchInputValue
+        }
       })
-    })
+    }
+
+  }
+
+  ngOnInit(): void {
+
+    this.categories$ = this._store.select(selectCategories)
+
   }
 
   ngDoCheck(): void {
@@ -56,6 +73,8 @@ export class NavbarComponent implements DoCheck, OnInit {
       this.srcImage = "../../../../../assets/userUnknow.jpg"
     }
   }
+
+
 
   logOut(): void {
     localStorage.removeItem("user")

@@ -1,0 +1,31 @@
+<main class="main container">
+
+    <div class="categories__phone">
+
+        <button class="categories__phone--button" mat-button [matMenuTriggerFor]="beforeMenu"> <mat-icon
+                class="categories__phone--icon" aria-hidden="false" aria-label="Example home icon"
+                fontIcon="sort"></mat-icon>
+            Categorias</button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item class="categories__link" *ngFor="let category of (categories$ | async).categories"
+                (click)="setCategory(category.id)">{{category.name}}</button>
+        </mat-menu>
+    </div>
+
+    <h2 class="category">{{(categoryTitle$ | async)}}</h2>
+
+    <div class="info">
+        <p class="info__text info__text--search">{{(searchTitle$ | async)}}</p>
+        <p class="info__text info__text--length">{{(products$ | async).count}} resultados</p>
+    </div>
+    <aside class="categories">
+        <h3 class="categories__title">Categorias</h3>
+        <div class="categories__list">
+            <a class="categories__link" *ngFor="let category of (categories$ | async).categories"
+                (click)="setCategory(category.id)">{{category.name}}</a>
+        </div>
+    </aside>
+    <section class="products">
+        <app-product [product]="product" *ngFor="let product of (products$ | async).products"></app-product>
+    </section>
+</main>

@@ -1,0 +1,51 @@
+<div class="main">
+    <div class="header">
+        <p class="breadcrumb">{{(categories$ | async)?.name ?? "" | capitalize}}</p>
+        <p class="status" [ngClass]="[status == undefined ? '':'', status == true ? 'status--success':'', status == false ? 'status--error':'']">{{statusMessage}}</p>
+    </div> 
+
+    <div class="product">
+        <div class="product__images">
+            <div class="thumbanail">
+                <img *ngFor="let src of srcImage; let i = index" role="listitem" class="thumbanail__image"
+                    [ngClass]="i == srcIndex ? 'thumbanail__image--selected' : ''" (click)="selectImage(i)" [src]="src"
+                    alt="">
+            </div>
+            <div class="carrousel">
+                <mat-icon aria-hidden="false" (click)="onSliderIconBackClick()"
+                    class="carrousel__arrow carrousel__arrow--back" fontIcon="arrow_back"></mat-icon>
+                <img *ngFor="let src of srcImage; let i = index" class="carrousel__image"
+                    [ngClass]="i == srcIndex ? '' : 'carrousel__image--hide'" [src]="src" alt="">
+                <mat-icon aria-hidden="false" (click)="onSliderIconForwardClick()"
+                    class="carrousel__arrow carrousel__arrow--forward" fontIcon="arrow_forward"></mat-icon>
+            </div>
+        </div>
+
+        <div class="product__info">
+            <h1 class="product__title">{{product.name ?? "" | capitalize}}</h1>
+
+            <p class="product__price">S/{{product.price}}</p>
+            <form [formGroup]="amountForm" class="product__actions">
+                <mat-form-field floatLabel="always">
+                    <mat-label>Cantidad</mat-label>
+                    <input formControlName="amount" class="product__actions--input" matInput type="number">
+                </mat-form-field>
+                <div class="product__actions--row">
+                    <button class="product__actions--button" mat-raised-button color="primary" (click)="addCart()">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon"
+                            fontIcon="shopping_cart"></mat-icon>Añadir
+                        al carrito</button>
+                    <button (click)="addWishList()" class="product__actions--save"><mat-icon
+                            class="product__actions--icon" aria-hidden="false" aria-label="Example home icon"
+                            fontIcon="star"></mat-icon>Guardado</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <h2 class="recomendados">Descripción</h2>
+    <p class="product__description">{{product.description}}</p>
+    <h2 class="recomendados">Recomendados</h2>
+    <div *ngIf="(productsList$ |async)?.length > 0" class="recomendados__list">
+        <app-product *ngFor="let productComponent of (productsList$ |async)" [product]="productComponent"></app-product>
+    </div>
+</div>

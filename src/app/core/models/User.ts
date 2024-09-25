@@ -1,14 +1,14 @@
 export interface User {
-    id?: Number,
+    id?: number,
     name?: string,
     birthdate?: string,
     email?: string,
     password?: string,
-    rol?: Number,
+    rol?: number,
     createdDate?: string,
     image?: string,
-    eliminado?: Number,
-    auth?: Number,
-    auth_code?: Number,
-    code_try?: Number
+    eliminado?: number,
+    auth?: number,
+    auth_code?: number,
+    code_try?: number
 }

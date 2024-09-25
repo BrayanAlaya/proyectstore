@@ -3,7 +3,7 @@
         <div class="vender__description--flex">
             <div class="vender__description">
                 <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="edit"></mat-icon>
-                <p class="vender__description--text">Vender</p>
+                <p class="vender__description--text">{{title}}</p>
             </div>
             <p class="vender__status" [ngClass]="[status === true ? 'vender__status--success' : '', status === false ? 'vender__status--error' : '']">{{statusMessage}}</p>
         </div>
@@ -18,7 +18,7 @@
                     <mat-form-field floatLabel="always">
                         <mat-label>Precio</mat-label>
                         <input matInput placeholder="0" formControlName="price">
-                        <span matTextPrefix>$&nbsp;</span>
+                        <span matTextPrefix>S/&nbsp;</span>
                     </mat-form-field>
                     <mat-form-field floatLabel="always">
                         <mat-label>Cantidad</mat-label>
@@ -31,7 +31,7 @@
                     <mat-form-field>
                         <mat-label>Categorias</mat-label>
                         <mat-select formControlName="category">
-                            <mat-option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</mat-option>
+                            <mat-option *ngFor="let category of (categories$ | async).categories" [value]="category.id">{{category.name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -61,7 +61,7 @@
         </mat-tab-group>
 
         <div class="vender__flex">
-            <button mat-raised-button class="vender__button" color="primary">Publicar</button>
+            <button mat-raised-button class="vender__button" color="primary">{{buttonText}}</button>
         </div>
 
     </form>

@@ -1,19 +1,24 @@
-
-.sidevar{
+.sidevar {
 
     display: flex;
     height: 95vh;
     gap: 2%;
     overflow: hidden;
 
-    &__side{
+    &__side {
         flex: 3rem;
     }
 
-    &__content{
+    &__content {
         flex: 100%;
         position: sticky;
         z-index: 0;
         overflow: scroll;
-    }   
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        &-webkit-scrollbar {
+            display: none;
+        }
+    }
 }

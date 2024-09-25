@@ -16,7 +16,7 @@
         <div class="categories__container container">
             <h2 class="categories__title">Categorias</h2>
             <div class="categories__grid">
-                <a *ngFor="let category of categories" class="category" routerLink="/auth">{{category.name}}</a>
+                <a *ngFor="let category of (categories$ | async).categories" class="category" routerLink="/auth">{{category.name}}</a>
 
                 <a class="category category--vermas" routerLink="">Ver más</a>
 

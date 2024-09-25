@@ -5,8 +5,8 @@
             <h2 routerLink="/" class="navbar__title">ProyectStore</h2>
 
             <div class="navbar__search">
-                <input class="navbar__search__input" placeholder="Buscar" #searchInput type="text">
-                <a class="navbar__search__button" (click)="searchInput.focus()" routerLink=""><mat-icon
+                <input class="navbar__search__input" [(ngModel)]="searchInputValue" #searchInput (keydown.enter)="search()" placeholder="Buscar" type="text">
+                <a class="navbar__search__button" (click)="searchInputValue != '' ? search(): searchInput.focus()"><mat-icon
                         svgIcon="search-button" aria-hidden="false"></mat-icon></a>
             </div>
 
@@ -21,11 +21,6 @@
                         cuenta</a>
                     <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
                         routerLink="/user/ajustes">Ajustes</a>
-                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="/user/sell">Vender</a>
-                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
-                        routerLink="">Historial</a>
-                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="">Mis
-                        productos</a>
                     <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
                         routerLink="">Notificaciones</a>
                     <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
@@ -41,10 +36,10 @@
         <div class="navbar__lower">
 
             <button class="navbar__user__optionsName" [matMenuTriggerFor]="menu">Categorias</button>
-            <mat-menu #menu="matMenu">
-                <a *ngFor="let category of categories"
-                    class="navbar__user__optionsName navbar__user__optionsName--categorias"
-                    routerLink="">{{category.name}}</a>
+            <mat-menu #menu="matMenu" >
+                    <a *ngFor="let category of (categories$ | async).categories"
+                        class="navbar__user__optionsName navbar__user__optionsName--categorias"
+                        routerLink="/products" [queryParams]="{category: category.id}">{{category.name}}</a>
             </mat-menu>
 
             <a class="navbar__user__optionsName" routerLink="/user/sell">Vender</a>
@@ -65,6 +60,12 @@
 <div class="slide" [ngClass]="{ 'slide--action': slide }">
 
     <div class="slide--in">
+
+        <div class="navbar__search">
+            <input class="navbar__search__input" [(ngModel)]="searchInputValue" #searchInput (keydown.enter)="search()" placeholder="Buscar" type="text">
+            <a class="navbar__search__button" (click)="searchInputValue != '' ? search(): searchInput.focus()"><mat-icon
+                    svgIcon="search-button" aria-hidden="false"></mat-icon></a>
+        </div>
 
         <div class="navbar__user">
 

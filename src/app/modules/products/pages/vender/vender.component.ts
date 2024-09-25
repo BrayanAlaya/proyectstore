@@ -1,11 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ThemePalette } from '@angular/material/core';
-import { MatTabGroup } from '@angular/material/tabs';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductsService } from '../../services/products.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
-import { CategoryService } from 'src/app/shared/services/category.service';
-import { Category } from 'src/app/core/models/Category';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/states/app.state';
+import { Observable } from 'rxjs';
+import { selectCategories } from 'src/app/states/category/category.selectors';
+import { ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/core/models/User';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-vender',
@@ -13,67 +16,84 @@ import { Category } from 'src/app/core/models/Category';
   styleUrls: ['./vender.component.scss']
 })
 export class VenderComponent {
-  @ViewChild('tabGroup') tabGroup!: MatTabGroup;
 
-  public tab: number = 0
-  public buttonTabText = "Continuar"
   public srcImage: Array<Object> = []
   public imagesArray: any = []
   public srcIndex: number = 0
   public venderForm: FormGroup
   public statusMessage: string = ""
-  public status !: boolean
+  public status: boolean | undefined
   private token: String | null
-  public categories: Array<Category> = []
+  public categories$: Observable<any> = new Observable()
+
+  public title!: string
+  public buttonText!: string
+  private user!: User | null
+  private productId: number | string | undefined
 
   constructor(
     private _fb: FormBuilder,
     private _productService: ProductsService,
     private _userService: UserService,
-    private _categoryService: CategoryService
+    private _store: Store<AppState>,
+    private _route: ActivatedRoute,
   ) {
-    this.srcImage.push("../../../../../assets/imageNotFound.jpg")
     this.venderForm = this._fb.group({
       name: ["", [Validators.required, Validators.maxLength(40)]],
       price: ["", [Validators.required, Validators.pattern(/^\d{1,4}(\.\d)?$/)]],
       amount: ["", [Validators.required, Validators.pattern(/^\d{1,4}$/)]],
       description: ["", [Validators.required, Validators.maxLength(500)]],
       category: ["", [Validators.required]],
-    }),
-      this.token = _userService.getLocalToken()
-    _categoryService.get().subscribe({
-      next: (c => {
-        this.categories = c.data
-      })
     })
+    this.token = this._userService.getLocalToken()
+    this.user = this._userService.getLocalUSer()
+    this.categories$ = this._store.select(selectCategories)
+    this.setFields()
   }
 
-  selectTab(index: number) {
-    this.tabGroup.selectedIndex = index;
-
-  }
-
-  nextTab(): number {
-
-    this.tab += 1
-    if (this.tab == this.tabGroup._tabs.length) {
-      this.tab = 0
-    }
-
-    if (this.tab == (this.tabGroup._tabs.length - 1)) {
-      this.buttonTabText = "Inicio"
-    } else {
-      this.buttonTabText = "Continuar"
-    }
-
-    return this.tab
+  setFields(): void {
+    this._route.queryParams.subscribe(params => {
+      if (params["id"]) {
+        this.title = "Actualizar venta"
+        this.buttonText = "Actualizar"
+        this.productId = params["id"]
+        this._productService.get("", "", this.user?.id, "", params["id"]).subscribe({
+          next: (response: any) => {
+            if (parseInt(response.status) == 200) {
+              this.venderForm.patchValue({
+                name: response.data[0].name,
+                price: response.data[0].price,
+                amount: response.data[0].stock,
+                description: response.data[0].description,
+                category: response.data[0].category_id,
+              })
+              this.srcImage = []
+              const images = JSON.parse(response.data[0].image)
+              for (let i = 0; i < images.length; i++) {
+                this.srcImage.push(environment.s3url + images[i])
+              }
+            }
+          }
+        })
+      } else {
+        this.srcImage = []
+        this.venderForm.reset()
+        this.status = undefined
+        this.statusMessage = ""
+        this.title = "Vender"
+        this.srcImage.push("../../../../../assets/imageNotFound.png")
+        this.buttonText = "Publicar"
+        this.productId = undefined
+      }
+    })
 
   }
 
   onSubmit(): void {
-
+    console.log("pasando")
     if (!this.venderForm.get("name")?.valid) {
       this.status = false
+      console.log("pasando")
       this.statusMessage = "Llenar todos los campos"
       return
     }
@@ -98,7 +118,7 @@ export class VenderComponent {
       return
     }
 
-    if (this.imagesArray.length < 1) {
+    if (this.imagesArray.length < 1 && this.srcImage.length < 1) {
       this.status = false
       this.statusMessage = "Elegir almenos una imagen"
       return
@@ -110,6 +130,9 @@ export class VenderComponent {
       return
     }
 
+    this.status = true
+    this.statusMessage = "Espera......."
+
     const productData: FormData = new FormData()
     productData.append("name", this.venderForm.value.name)
     productData.append("price", this.venderForm.value.price)
@@ -118,8 +141,18 @@ export class VenderComponent {
     productData.append("category_id", this.venderForm.value.category)
     for (let i = 0; i < this.imagesArray.length; i++) {
       productData.append("image", this.imagesArray[i])
+      console.log("image")
     }
 
+    if (this.productId) {
+
+      this.updateProduct(productData)
+    } else {
+      this.createProduct(productData)
+    }
+  }
+
+  createProduct(productData: FormData): void {
     this._productService.create(productData, this.token).subscribe({
       next: (response: any) => {
         console.log(response)
@@ -134,7 +167,21 @@ export class VenderComponent {
 
       }
     })
+  }
+  updateProduct(productData: FormData): void {
+    this._productService.update(productData, this.token, this.productId).subscribe({
+      next: (response: any) => {
+       
+        if (parseInt(response.status) == 200) {
+          this.status = true
+          this.statusMessage = "Producto actualizado correctamente"
+        } else {
+          this.status = false
+          this.statusMessage = "Hubo un error al actualizar el producto"
+        }
 
+      }
+    })
   }
 
   uploadimage(e: any): void {
@@ -154,7 +201,6 @@ export class VenderComponent {
           this.srcImage.push(event.target.result)
         }
       }
-      console.log(this.imagesArray)
     }
   }
 
@@ -171,7 +217,7 @@ export class VenderComponent {
   }
 
   onSliderIconForwardClick(): void {
-    if (this.srcIndex < this.imagesArray.length - 1) {
+    if (this.srcIndex < this.srcImage.length - 1) {
       this.srcIndex++
     }
   }
