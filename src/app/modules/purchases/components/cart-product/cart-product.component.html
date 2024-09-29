@@ -1,0 +1,24 @@
+<div class="product">
+    <img routerLink="/product" [queryParams]="{id: product.products?.id}" class="product__image" src="{{s3Url + image}}"
+        alt="">
+    <div class="product__info">
+
+        <div class="product__info--details">
+            <h1 routerLink="/product" [queryParams]="{id: product.id}" class="product__info--title">
+                {{product.products?.name
+                ?? "" | capitalize}}</h1>
+            <div class="product__info--flex">
+                <div class="product__info--actionStock--flex">
+                    <button class="product__info--text product__info--actionStock">—
+                    </button>
+                    <p class="product__info--text product__info--number">5</p>
+                    <button class="product__info--text product__info--actionStock">+
+                    </button>
+                </div>
+                <p class="product__info--price">S/{{product.products?.price}}</p>
+            </div>
+        </div>
+
+        <button class="product__eliminar">Eliminar</button>
+    </div>
+</div>

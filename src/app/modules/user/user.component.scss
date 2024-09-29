@@ -1,17 +1,21 @@
 .sidevar {
-
     display: flex;
-    height: 95vh;
+    box-sizing: border-box;
+    height: calc(100vh - 72px);
+    @media (min-width: 920px) {
+        height: calc(100vh - 121px);
+    }
+
+    
     gap: 2%;
     overflow: hidden;
 
     &__side {
-        flex: 3rem;
+        width: 52px;
     }
 
     &__content {
-        flex: 100%;
-        position: sticky;
+        width: 100%;
         z-index: 0;
         overflow: scroll;
         scrollbar-width: none;

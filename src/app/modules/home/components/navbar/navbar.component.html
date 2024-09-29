@@ -1,56 +1,70 @@
 <header class="navbar">
-    <div class="navbar--pc container">
-        <div class="navbar__upper">
+    <div class="navbar--pc">
+        <div class="navbar__upper--bg">
+            <div class="navbar__upper container">
 
-            <h2 routerLink="/" class="navbar__title">ProyectStore</h2>
+                <h2 routerLink="/" class="navbar__title">ProyectStore</h2>
 
-            <div class="navbar__search">
-                <input class="navbar__search__input" [(ngModel)]="searchInputValue" #searchInput (keydown.enter)="search()" placeholder="Buscar" type="text">
-                <a class="navbar__search__button" (click)="searchInputValue != '' ? search(): searchInput.focus()"><mat-icon
-                        svgIcon="search-button" aria-hidden="false"></mat-icon></a>
-            </div>
+                <div class="navbar__search">
+                    <input class="navbar__search__input" [(ngModel)]="searchInputValue" #searchInput
+                        (keydown.enter)="search()" placeholder="Buscar" type="text">
+                    <a class="navbar__search__button"
+                        (click)="searchInputValue != '' ? search(): searchInput.focus()"><mat-icon aria-hidden="false"
+                            aria-label="Example home icon" fontIcon="search"></mat-icon>
+                    </a>
+                </div>
 
-            <div class="navbar__user">
-                <a *ngIf="user == null" class="navbar__user__optionsName" routerLink="/auth/register">Register</a>
-                <a *ngIf="user == null" class="navbar__user__optionsName" routerLink="/auth">Log In</a>
+                <div class="navbar__user">
+                    <a *ngIf="user == null" class="navbar__user__optionsName navbar__user__optionsName--user" routerLink="/auth/register">Register</a>
+                    <a *ngIf="user == null" class="navbar__user__optionsName navbar__user__optionsName--user" routerLink="/auth">Log In</a>
 
-                <button *ngIf="user != null" class="navbar__user__optionsName"
-                    [matMenuTriggerFor]="menuUser">{{user!.name}}</button>
-                <mat-menu #menuUser="matMenu">
-                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="/user">Mi
-                        cuenta</a>
-                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
-                        routerLink="/user/ajustes">Ajustes</a>
-                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
-                        routerLink="">Notificaciones</a>
-                    <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
-                        routerLink="">Favoritos</a>
-                    <button *ngIf="user != null" class="navbar__user__optionsName navbar__user__optionsName--categorias"
-                        (click)="logOut()">Log out</button>
-                </mat-menu>
+                    <button *ngIf="user != null" class="navbar__user__optionsName navbar__user__optionsName--user"
+                        [matMenuTriggerFor]="menuUser">{{user!.name}}</button>
+                    <mat-menu #menuUser="matMenu">
+                        <a class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="/user">Mi
+                            cuenta</a>
+                        <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
+                            routerLink="/user/ajustes">Ajustes</a>
+                        <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
+                            routerLink="">Notificaciones</a>
+                        <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
+                            routerLink="">Favoritos</a>
+                        <button *ngIf="user != null"
+                            class="navbar__user__optionsName navbar__user__optionsName--categorias"
+                            (click)="logOut()">Log out</button>
+                    </mat-menu>
 
-                <img *ngIf="user != null" class="navbar__user__image" [src]="srcImage" alt="">
+                    <img *ngIf="user != null" class="navbar__user__image" [src]="srcImage" alt="">
+                </div>
+
+                <a class="navbar__cart" routerLink="/cart"><mat-icon class="navbar__cart--icon" aria-hidden="false"
+                        aria-label="Example home icon" fontIcon="shopping_cart"></mat-icon>Carrito</a>
+
             </div>
         </div>
 
-        <div class="navbar__lower">
+        <div class="navbar__lower--bg">
 
-            <button class="navbar__user__optionsName" [matMenuTriggerFor]="menu">Categorias</button>
-            <mat-menu #menu="matMenu" >
+            <div class="navbar__lower container">
+                <button class="navbar__user__optionsName" [matMenuTriggerFor]="menu">Categorias</button>
+                <mat-menu #menu="matMenu">
                     <a *ngFor="let category of (categories$ | async).categories"
-                        class="navbar__user__optionsName navbar__user__optionsName--categorias"
-                        routerLink="/products" [queryParams]="{category: category.id}">{{category.name}}</a>
-            </mat-menu>
-
-            <a class="navbar__user__optionsName" routerLink="/user/sell">Vender</a>
-            <a class="navbar__user__optionsName" routerLink="">Ayuda</a>
+                        class="navbar__user__optionsName navbar__user__optionsName--categorias" routerLink="/products"
+                        [queryParams]="{category: category.id}">{{category.name}}</a>
+                </mat-menu>
+    
+                <a class="navbar__user__optionsName" routerLink="/user/sell">Vender</a>
+                <a class="navbar__user__optionsName" routerLink="">Ayuda</a>
+            </div>
+            
         </div>
     </div>
 
-    <div class="sidenav">
+    <div class="sidenav navbar__upper--bg">
 
         <div class="sidenav__buttonTitle">
-            <button class="sidenav__button" (click)="slide = true"><mat-icon svgIcon="slide-button"></mat-icon></button>
+            <button class="sidenav__button" (click)="slide = true"><mat-icon class="sidenav__icon" aria-hidden="false"
+                    aria-label="Example home icon" fontIcon="menu"></mat-icon></button>
             <h1 routerLink="/" class="sidenav__title">ProyectStore</h1>
         </div>
 
@@ -62,9 +76,10 @@
     <div class="slide--in">
 
         <div class="navbar__search">
-            <input class="navbar__search__input" [(ngModel)]="searchInputValue" #searchInput (keydown.enter)="search()" placeholder="Buscar" type="text">
+            <input class="navbar__search__input" [(ngModel)]="searchInputValue" #searchInput (keydown.enter)="search()"
+                placeholder="Buscar" type="text">
             <a class="navbar__search__button" (click)="searchInputValue != '' ? search(): searchInput.focus()"><mat-icon
-                    svgIcon="search-button" aria-hidden="false"></mat-icon></a>
+                    aria-hidden="false" aria-label="Example home icon" fontIcon="search"></mat-icon></a>
         </div>
 
         <div class="navbar__user">

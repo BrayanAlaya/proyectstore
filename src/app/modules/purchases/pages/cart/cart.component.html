@@ -1,0 +1,13 @@
+<main class="cart container">
+    <section class="products">
+        <app-cart-product *ngFor="let product of (products$ | async)?.data" [product]="product" ></app-cart-product>
+    </section>
+    <aside class="detalles">
+        <p>Resumen de compra</p>
+        <p>Productos(5)</p>
+        <div class="detalles__precio">
+            <p>Total</p>
+            <p>1515</p>
+        </div>
+    </aside>
+</main>

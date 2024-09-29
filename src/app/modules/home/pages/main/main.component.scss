@@ -4,20 +4,19 @@
     position: relative;
 
     background: rgb(0, 0, 0);
-    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 6, 41, 1) 50%, rgba(0, 1, 49, 1) 100%);
+    background: linear-gradient(90deg, rgb(46, 46, 46) 0%, rgb(0, 26, 174) 50%, rgba(0, 1, 49, 1) 100%);
 
     overflow: hidden;
 
     &__flex {
         display: flex;
-        height: 40vh;
+        height: 25rem;
     }
 
     &__description {
         position: relative;
         z-index: 2;
         margin: auto 0;
-
     }
 
     &__title {

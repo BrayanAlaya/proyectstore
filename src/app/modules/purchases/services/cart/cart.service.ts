@@ -18,12 +18,16 @@ export class CartService {
   }
 
   save(data: Cart, token: any) : Observable<any>{
-
     const headers = new HttpHeaders().set("Authorization", token)
     return this._http.post(this._dbUrl, data, {headers: headers})
   }
 
+  get(token: any):Observable<any>{
 
+    const headers = new HttpHeaders().set("Authorization", token) 
+
+    return this._http.get(this._dbUrl,{headers: headers});
+  }
 
 }
 

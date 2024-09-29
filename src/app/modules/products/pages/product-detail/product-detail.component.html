@@ -1,8 +1,10 @@
 <div class="main">
     <div class="header">
         <p class="breadcrumb">{{(categories$ | async)?.name ?? "" | capitalize}}</p>
-        <p class="status" [ngClass]="[status == undefined ? '':'', status == true ? 'status--success':'', status == false ? 'status--error':'']">{{statusMessage}}</p>
-    </div> 
+        <p class="status"
+            [ngClass]="[status == undefined ? '':'', status == true ? 'status--success':'', status == false ? 'status--error':'']">
+            {{statusMessage}}</p>
+    </div>
 
     <div class="product">
         <div class="product__images">
@@ -35,9 +37,10 @@
                         <mat-icon aria-hidden="false" aria-label="Example home icon"
                             fontIcon="shopping_cart"></mat-icon>Añadir
                         al carrito</button>
-                    <button (click)="addWishList()" class="product__actions--save"><mat-icon
-                            class="product__actions--icon" aria-hidden="false" aria-label="Example home icon"
-                            fontIcon="star"></mat-icon>Guardado</button>
+                    <button (click)="addWishList()" class="product__actions--icon"><mat-icon
+                            [ngClass]='[saved ? "product__actions--save" : ""]' aria-hidden="false"
+                            aria-label="Example home icon" fontIcon="star"></mat-icon>{{saved ? 'Guardado' :
+                        'Guardar'}}</button>
                 </div>
             </form>
         </div>
@@ -45,7 +48,7 @@
     <h2 class="recomendados">Descripción</h2>
     <p class="product__description">{{product.description}}</p>
     <h2 class="recomendados">Recomendados</h2>
-    <div *ngIf="(productsList$ |async)?.length > 0" class="recomendados__list">
+    <div class="recomendados__list">
         <app-product *ngFor="let productComponent of (productsList$ |async)" [product]="productComponent"></app-product>
     </div>
 </div>

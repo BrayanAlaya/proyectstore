@@ -3,7 +3,7 @@ import { Product } from 'src/app/core/models/Product';
 import { ProductsService } from '../../services/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { map, merge, mergeMap, Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectCategories } from 'src/app/states/category/category.selectors';
 import { AppState } from 'src/app/states/app.state';
@@ -11,6 +11,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/modules/auth/services/user.service';
 import { CartService } from 'src/app/modules/purchases/services/cart/cart.service';
 import { Cart } from 'src/app/core/models/Cart';
+import { WishlistService } from 'src/app/modules/wishlist/services/wishlist.service';
+import { Wishlist } from 'src/app/core/models/Wishlist';
 
 @Component({
   selector: 'app-product-detail',
@@ -26,12 +28,13 @@ export class ProductDetailComponent implements OnInit {
   public categories$: Observable<any> = new Observable<any>
   public productsList$: Observable<any> = new Observable<any>
 
-  private productId: number = 1
+  private productId!: number
   public amountForm: FormGroup
 
   public statusMessage: string = ""
   public status: boolean | undefined
 
+  public saved: boolean = false
 
   constructor(
     private _productService: ProductsService,
@@ -39,7 +42,8 @@ export class ProductDetailComponent implements OnInit {
     private _store: Store<AppState>,
     private _fb: FormBuilder,
     private _userService: UserService,
-    private _cartService: CartService
+    private _cartService: CartService,
+    private _whisListService: WishlistService
   ) {
     this.amountForm = _fb.group(
       { amount: [1, [Validators.required, Validators.pattern(/^\d{1,4}$/)]] }
@@ -51,13 +55,17 @@ export class ProductDetailComponent implements OnInit {
 
     this._routerA.queryParamMap.subscribe({
       next: (params: any) => {
-        this._productService.get("", 0, "", "", params.params["id"]).subscribe({
+
+        const token = this._userService.getLocalToken()
+        this._productService.get("", 0, "", "", params.params["id"], token).subscribe({
           next: (response: any) => {
             if (parseInt(response.status) == 200) {
               this.product = response.data[0]
               this.srcImage = []
-
               this.productId = response.data[0].id
+
+              this.saved = response.wish.some((data: any) => data.product_id == this.productId)
+              
 
               const images = JSON.parse(response.data[0].image)
               for (let i = 0; i < images.length; i++) {
@@ -84,9 +92,9 @@ export class ProductDetailComponent implements OnInit {
     this._cartService.save(data, this._userService.getLocalToken()).subscribe({
       next: (response: any) => {
         if (parseInt(response.status) == 200) {
-          this.statusMessage = 'Actualizado Correctamente';
+          this.statusMessage = 'Añadido Correctamente';
           this.status = true
-        } else{
+        } else {
           this.statusMessage = 'Hubo un error, intentalo mas tarde';
           this.status = false
         }
@@ -100,7 +108,19 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addWishList(): void {
-    console.log(this.product.id)
+
+    const data: Wishlist = {
+      product_id: this.productId
+    }
+
+    this._whisListService.save(data, this._userService.getLocalToken()).subscribe({
+      next: (response: any) => {
+        console.log(response)
+        if (parseInt(response.status) == 200) {
+          this.saved = !this.saved
+        }
+      }
+    })
   }
 
   selectImage(i: number): void {

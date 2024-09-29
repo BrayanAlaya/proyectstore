@@ -109,7 +109,10 @@
         gap: 1rem;
 
         &--save {
+            color: rgb(3, 0, 151);
+        }
 
+        &--icon {
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -124,11 +127,6 @@
             border-radius: 5px;
             font-weight: bold;
 
-        }
-
-        &--icon {
-            color: rgb(3, 0, 151);
-            ;
         }
 
         &--row {

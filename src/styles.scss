@@ -2,7 +2,10 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-html, body { height: 100%;}
+body::-webkit-scrollbar {
+  display: none; /* Para Safari y Chrome */
+}
+html, body {display: block; position: relative; height: 100vh; width: 100vw; overflow: scroll;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 
 .container{
@@ -49,6 +52,7 @@ $dark-blue-palette: (
     A700: white,
   )
 );
+
 
 $my-primary-palette: mat-palette($dark-blue-palette);
 $my-accent-palette: mat-palette($mat-pink, A200, A100, A400);

@@ -29,7 +29,7 @@ export class ProductsService {
     return this._http.put(this._dbUrl + "/product/" + id, product, {headers: headers})
   }
 
-  get(name: string = "", page: string | number = "", user: string | number = "", category: string | number = "", id: string | number = ""): Observable<any> {
+  get(name: string = "", page: string | number = "", user: string | number = "", category: string | number = "", id: string | number = "", token: String | null = ""): Observable<any> {
 
     const params = new HttpParams()
       .set("id", id)
@@ -37,6 +37,7 @@ export class ProductsService {
       .set("page", page)
       .set("user", user)
       .set("category", category)
+      .set("token", token == null ? "" : token.toString())
 
     return this._http.get(this._dbUrl + "/product/", { params: params })
   }
