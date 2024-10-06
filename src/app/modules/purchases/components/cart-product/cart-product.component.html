@@ -1,24 +1,28 @@
 <div class="product">
-    <img routerLink="/product" [queryParams]="{id: product.products?.id}" class="product__image" src="{{s3Url + image}}"
+    <img routerLink="/product" [queryParams]="{id: cart.products?.id}" class="product__image" src="{{s3Url + image}}"
         alt="">
     <div class="product__info">
 
         <div class="product__info--details">
-            <h1 routerLink="/product" [queryParams]="{id: product.id}" class="product__info--title">
-                {{product.products?.name
-                ?? "" | capitalize}}</h1>
+            <div class="product__info--flex">
+                <h1 routerLink="/product" [queryParams]="{id: cart.products?.id}" class="product__info--title">
+                    {{cart.products?.name
+                    ?? "" | capitalize}}</h1>
+            </div>
             <div class="product__info--flex">
                 <div class="product__info--actionStock--flex">
-                    <button class="product__info--text product__info--actionStock">—
+                    <button (click)="substract()" class="product__info--text product__info--actionStock">{{cart.amount
+                        == 1 ? '' : '—'}}
+                        <mat-icon class="product__info--actionStock--icon" aria-hidden="false" *ngIf="cart.amount == 1"
+                            aria-label="Example home icon" fontIcon="delete"></mat-icon>
                     </button>
-                    <p class="product__info--text product__info--number">5</p>
-                    <button class="product__info--text product__info--actionStock">+
+                    <p class="product__info--text product__info--number">{{cart.amount}}</p>
+                    <button (click)="add()" class="product__info--text product__info--actionStock">+
                     </button>
                 </div>
-                <p class="product__info--price">S/{{product.products?.price}}</p>
+                <p class="product__info--price">S/{{(cart.products?.price ?? 0) * (cart.amount ?? 0)}}</p>
             </div>
         </div>
-
-        <button class="product__eliminar">Eliminar</button>
+        <button class="product__eliminar" (click)="delete()">Eliminar</button>
     </div>
 </div>

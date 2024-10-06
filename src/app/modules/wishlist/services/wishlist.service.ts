@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Wishlist } from 'src/app/core/models/Wishlist';
@@ -22,6 +22,14 @@ export class WishlistService {
     const headers = new HttpHeaders().set("Authorization", token)
 
     return this._http.post(this._dbUrl,data,{headers: headers})
+  }
+
+
+  get(token: any, page: number | string = "0"): Observable<any>{
+
+    const headers = new HttpHeaders().set("Authorization", token)
+    const params = new HttpParams().set("page", page)
+    return this._http.get(this._dbUrl,{headers: headers, params: params})
   }
 
 }

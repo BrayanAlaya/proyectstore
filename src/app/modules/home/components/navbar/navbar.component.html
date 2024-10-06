@@ -26,9 +26,9 @@
                         <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
                             routerLink="/user/ajustes">Ajustes</a>
                         <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
-                            routerLink="">Notificaciones</a>
+                            routerLink="/user/notifications">Notificaciones</a>
                         <a class="navbar__user__optionsName navbar__user__optionsName--categorias"
-                            routerLink="">Favoritos</a>
+                            routerLink="/user/wishlist">Favoritos</a>
                         <button *ngIf="user != null"
                             class="navbar__user__optionsName navbar__user__optionsName--categorias"
                             (click)="logOut()">Log out</button>
@@ -54,7 +54,7 @@
                 </mat-menu>
     
                 <a class="navbar__user__optionsName" routerLink="/user/sell">Vender</a>
-                <a class="navbar__user__optionsName" routerLink="">Ayuda</a>
+                <a class="navbar__user__optionsName" routerLink="/help">Ayuda</a>
             </div>
             
         </div>

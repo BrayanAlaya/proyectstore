@@ -1,4 +1,4 @@
-<main class="main container">
+<main class="main container" *ngIf="(products$ | async) as products">
 
     <div class="categories__phone">
 
@@ -15,8 +15,8 @@
     <h2 class="category">{{(categoryTitle$ | async)}}</h2>
 
     <div class="info">
-        <p class="info__text info__text--search">{{(searchTitle$ | async)}}</p>
-        <p class="info__text info__text--length">{{(products$ | async).count}} resultados</p>
+        <p class="info__text info__text--search">{{(searchTitle$ | async) != '' && (searchTitle$ | async) != undefined ? 'Buscar: ': ''}} {{(searchTitle$ | async)}}</p>
+        <p class="info__text info__text--length">{{products.count}} resultados</p>
     </div>
     <aside class="categories">
         <h3 class="categories__title">Categorias</h3>
@@ -26,6 +26,9 @@
         </div>
     </aside>
     <section class="products">
-        <app-product [product]="product" *ngFor="let product of (products$ | async).products"></app-product>
+        <div *ngIf="products.products.length <= 0" class="empty">
+            <h1 class="empty__text">No hay productos</h1>
+        </div>
+        <app-product [product]="product" *ngFor="let product of products.products"></app-product>
     </section>
 </main>

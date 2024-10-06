@@ -29,5 +29,11 @@ export class CartService {
     return this._http.get(this._dbUrl,{headers: headers});
   }
 
+  delete(id: number | string,token: any) : Observable<any>{
+    const headers = new HttpHeaders().set("Authorization", token) 
+
+    return this._http.delete(this._dbUrl + "/" + id,{headers: headers});
+  }
+
 }
 

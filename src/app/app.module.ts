@@ -11,6 +11,7 @@ import { ROOT_REDUCERS } from './states/app.state';
 import { EffectsModule } from '@ngrx/effects';
 import { CategoryEffects } from './states/category/category.effects';
 import { ProductsEffects } from './states/products/products.effects';
+import { CartEffects } from './states/cart/cart.effects';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { ProductsEffects } from './states/products/products.effects';
     HttpClientModule,
     StoreModule.forRoot(ROOT_REDUCERS),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([CategoryEffects, ProductsEffects])
+    EffectsModule.forRoot([CategoryEffects, ProductsEffects, CartEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

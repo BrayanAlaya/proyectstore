@@ -1,0 +1,11 @@
+<main class="historial--bg">
+    <div class="historial container" >
+        <p class="breadcrumb">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="schedule"></mat-icon>
+            Historial</p>
+        <section class="purchases">
+            <app-bought-product *ngFor="let purchase of purchases" [purchase]="purchase"></app-bought-product>
+        </section>
+        <button class="showMore" *ngIf="showStutus" (click)="showMore()" mat-button>Mostrar Más</button>
+    </div>
+</main>

@@ -4,6 +4,10 @@ import { CommonModule } from '@angular/common';
 import { CartRoutingModule } from './cart-routing.module';
 import { CartComponent } from './cart.component';
 import { CartProductModule } from '../../components/cart-product/cart-product.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BuyModalModule } from '../../components/buy-modal/buy-modal.module';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -12,7 +16,11 @@ import { CartProductModule } from '../../components/cart-product/cart-product.mo
   imports: [
     CommonModule,
     CartRoutingModule,
-    CartProductModule
+    CartProductModule,
+    BuyModalModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatIconModule
   ],
   exports:[
     CartComponent

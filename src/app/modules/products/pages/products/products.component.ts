@@ -33,7 +33,7 @@ export class ProductsComponent {
       next: (response: any) => {
         this.nameQuery = response.params.name
         this.categoryQuery = response.params.category
-        
+        console.log(this.nameQuery)
         this.searchTitle$ = of(this.nameQuery);
         this.categoryTitle$ = this.categories$.pipe(
           map(categories => categories.categories?.find((category: any) => category.id == parseInt(this.categoryQuery))?.name)

@@ -2,22 +2,24 @@
     <img routerLink="/product" [queryParams]="{id: product.id}" class="product__image" src="{{s3Url + image}}" alt="">
     <div class="product__info">
         <div>
-            <h1 routerLink="/product" [queryParams]="{id: product.id}" class="product__info--title">{{product.name ?? "" | capitalize}}</h1>
+            <h1 routerLink="/product" [queryParams]="{id: product.id}" class="product__info--title">{{product.name ?? ""
+                | capitalize}}</h1>
             <p class="product__info--price">S/{{product.price}}</p>
         </div>
-        <div class="product__info--stock--flex product__info--stock--avalible" *ngIf="viewStock(product.stock)">
-            <mat-icon  aria-hidden="false" aria-label="Example home icon" fontIcon="check"></mat-icon><p  class="product__info--stock">Disponible</p>
-        </div>
-        <div class="product__info--stock--flex product__info--stock--out" *ngIf="!viewStock(product.stock)">
-            <mat-icon  aria-hidden="false" aria-label="Example home icon" fontIcon="close"></mat-icon><p class="product__info--stock">Agotado</p>
-        </div>
+
     </div>
     <div class="product__actions">
-        <button mat-raised-button color="primary" routerLink="/product" [queryParams]="{id: product.id}"><mat-icon aria-hidden="false" aria-label="Example home icon"
-                fontIcon="shopping_bag"></mat-icon>
-            Comprar</button>
-        <button mat-raised-button color="primary" (click)="addCart()"><mat-icon aria-hidden="false" aria-label="Example home icon"
-                fontIcon="shopping_cart"></mat-icon>
+
+        <button mat-raised-button color="primary" (click)="addCart()"><mat-icon aria-hidden="false"
+                aria-label="Example home icon" fontIcon="shopping_cart"></mat-icon>
             Añadir al carrito</button>
+        <div class="product__info--stock--flex product__info--stock--avalible" *ngIf="viewStock(product.stock)">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="check"></mat-icon>
+            <p class="product__info--stock">Disponible</p>
+        </div>
+        <div class="product__info--stock--flex product__info--stock--out" *ngIf="!viewStock(product.stock)">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="close"></mat-icon>
+            <p class="product__info--stock">Agotado</p>
+        </div>
     </div>
 </div>
