@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/states/app.state';
 import { Observable } from 'rxjs';
 import { selectCategories } from 'src/app/states/category/category.selectors';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/core/models/User';
 import { environment } from 'src/environments/environment';
 
@@ -37,6 +37,7 @@ export class VenderComponent {
     private _userService: UserService,
     private _store: Store<AppState>,
     private _route: ActivatedRoute,
+    private _r: Router,
   ) {
     this.venderForm = this._fb.group({
       name: ["", [Validators.required, Validators.maxLength(40)]],
@@ -90,10 +91,8 @@ export class VenderComponent {
   }
 
   onSubmit(): void {
-    console.log("pasando")
     if (!this.venderForm.get("name")?.valid) {
       this.status = false
-      console.log("pasando")
       this.statusMessage = "Llenar todos los campos"
       return
     }
@@ -141,7 +140,6 @@ export class VenderComponent {
     productData.append("category_id", this.venderForm.value.category)
     for (let i = 0; i < this.imagesArray.length; i++) {
       productData.append("image", this.imagesArray[i])
-      console.log("image")
     }
 
     if (this.productId) {
@@ -155,11 +153,14 @@ export class VenderComponent {
   createProduct(productData: FormData): void {
     this._productService.create(productData, this.token).subscribe({
       next: (response: any) => {
-        console.log(response)
 
         if (parseInt(response.status) == 200) {
           this.status = true
           this.statusMessage = "Producto publicado correctamente"
+       
+          this._r.navigate(["/user/sell-list"])
+
+
         } else {
           this.status = false
           this.statusMessage = "Hubo un error al publicar el producto"
@@ -171,10 +172,13 @@ export class VenderComponent {
   updateProduct(productData: FormData): void {
     this._productService.update(productData, this.token, this.productId).subscribe({
       next: (response: any) => {
-       
+
         if (parseInt(response.status) == 200) {
           this.status = true
           this.statusMessage = "Producto actualizado correctamente"
+
+          this._r.navigate(["/user/sell-list"])
+
         } else {
           this.status = false
           this.statusMessage = "Hubo un error al actualizar el producto"

@@ -61,7 +61,7 @@
         </mat-tab-group>
 
         <div class="vender__flex">
-            <button mat-raised-button class="vender__button" color="primary">{{buttonText}}</button>
+            <button mat-raised-button class="vender__button" [disabled]="status" color="primary">{{buttonText}}</button>
         </div>
 
     </form>

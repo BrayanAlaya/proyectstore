@@ -25,7 +25,13 @@ export class ProductComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.image = JSON.parse(this.product.image == undefined ? "" : this.product.image.toString())[0]
+
+    if (this.product.image != '[]') {
+      this.image = this.s3Url + JSON.parse(this.product.image == undefined ? "" : this.product.image.toString())[0]
+    } else{
+      this.image = "../../../../../assets/imageNotFound.png"
+    }
+    
   }
 
   addCart(): void{

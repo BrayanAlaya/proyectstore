@@ -47,6 +47,7 @@ export class UserProductComponent implements OnInit {
           next: (response: any) => {
             if (parseInt(response.status) == 200) {
               this._store.dispatch(loadProducts({name: "", page: 0,user:  this.user?.id, category: "", id: ""}))
+          
             }
           }
         })
@@ -56,7 +57,12 @@ export class UserProductComponent implements OnInit {
   }
  
   ngOnInit(): void {
-    this.image = JSON.parse(this.product.image == undefined ? "" : this.product.image.toString())[0]
+
+    if (this.product.image != '[]') {
+      this.image = this._s3URL + JSON.parse(this.product.image == undefined ? "" : this.product.image.toString())[0]
+    } else{
+      this.image = "../../../../../assets/imageNotFound.png"
+    }
   }
 
 

@@ -15,6 +15,7 @@ import { AppState } from 'src/app/states/app.state';
 export class BuyModalComponent {
   public creditCardNumber: string = '';
   public disable: boolean = true
+  private disableButton: boolean = true
 
   public creditCart: string = "4789 4854 4878 4754" 
   public mm: string = "05"
@@ -34,9 +35,14 @@ export class BuyModalComponent {
 
   buy(): void{
 
+    if (!this.disableButton) {
+      return
+    }
+
+    this.disableButton = false
+
     this._purchaseService.save(this._userService.getLocalToken()).subscribe({
       next: (r: any) => {
-        console.log(r)
         if (parseInt(r.status) == 200) {
           this.statusMessage = "Comprado Comprado"
           this.status = true
@@ -50,6 +56,7 @@ export class BuyModalComponent {
         } else{
           this.statusMessage = "Hubo un error"
           this.status = false
+          this.disableButton = true
         }
       }
     })

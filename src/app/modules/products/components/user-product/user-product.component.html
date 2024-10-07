@@ -1,7 +1,7 @@
 
 <div class="product">
     <div class="product__image">
-        <img class="product__image--image" src="{{image == '' ? 'adsads': _s3URL + image}}" alt="">
+        <img class="product__image--image" src="{{image}}" alt="">
     </div>
     <div class="product__info">
         <h4 class="product__info--title">{{product.name?.charAt(0)?.toUpperCase() + (product.name == undefined ? "": product.name.slice(1).toLowerCase())}}</h4>

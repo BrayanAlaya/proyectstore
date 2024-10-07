@@ -1,5 +1,5 @@
 <div class="product">
-    <img routerLink="/product" [queryParams]="{id: product.id}" class="product__image" src="{{s3Url + image}}" alt="">
+    <img routerLink="/product" [queryParams]="{id: product.id}" class="product__image" src="{{image}}" alt="">
     <div class="product__info">
         <div>
             <h1 routerLink="/product" [queryParams]="{id: product.id}" class="product__info--title">{{product.name ?? ""
