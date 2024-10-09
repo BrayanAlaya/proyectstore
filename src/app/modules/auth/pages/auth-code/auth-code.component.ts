@@ -17,6 +17,8 @@ export class AuthCodeComponent implements OnInit {
   public codeSent: boolean = false
   public user: User | null | undefined;
   public codeValid: boolean = true
+  public coseSentButton: boolean = false
+  public coseSentText: string = "Enviar Clave"
 
   constructor(
     private _fb: FormBuilder,
@@ -92,13 +94,14 @@ export class AuthCodeComponent implements OnInit {
         } else if (parseInt(response.status) == 429) {
           this.codeValid = false
         } else if (parseInt(response.status) == 400) {
-          
+
         }
       }
     })
   }
 
   sendCode(): void {
+
     if (!this.authCodeForm.get("email")?.valid) {
       return
     }
@@ -106,13 +109,37 @@ export class AuthCodeComponent implements OnInit {
     let user: User = {
       email: this.authCodeForm.value.email
     }
+    this.coseSentButton = true
 
     this._userService.sendAuthCode(user).subscribe({
       next: (response: any) => {
+        console.log(response)
         if (parseInt(response.status) == 200) {
           this.codeSent = true
           this.codeValid = true
+
+          this.coseSentText = "Enviar Clave (" + 6 + ")"
+          setTimeout(() => {
+            this.coseSentText = "Enviar Clave (" + 5 + ")"
+            setTimeout(() => {
+              this.coseSentText = "Enviar Clave (" + 4 + ")"
+              setTimeout(() => {
+                this.coseSentText = "Enviar Clave (" + 3 + ")"
+                setTimeout(() => {
+                  this.coseSentText = "Enviar Clave (" + 2 + ")"
+                  setTimeout(() => {
+                    this.coseSentText = "Enviar Clave (" + 1 + ")"
+                    setTimeout(() => {
+                      this.coseSentText = "Enviar Clave"
+                      this.coseSentButton = false
+                    }, 1000);
+                  }, 1000);
+                }, 1000);
+              }, 1000);
+            }, 1000);
+          }, 1000);
         }
+
       }
     })
   }

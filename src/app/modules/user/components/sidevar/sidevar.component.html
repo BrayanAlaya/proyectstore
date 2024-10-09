@@ -1,7 +1,7 @@
 <aside class="aside">
     <div class="aside__section aside__section--icons" (mouseenter)="slide = true" (mouseleave)="slide = false">
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
-        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>
+        <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon> -->
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="sell"></mat-icon>
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="storefront"></mat-icon>
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="schedule"></mat-icon>
@@ -10,7 +10,7 @@
         <div [ngClass]="{'aside__in' : !slide}" (click)="slideAction()"></div>
         <div class="aside__section" [ngClass]="{'aside__section--slide' : slide }">
             <a class="aside__link" (click)="slideAction()" routerLink="/user">Mi cuenta</a>
-            <a class="aside__link" (click)="slideAction()" routerLink="/user/ajustes">Usuario</a>
+            <!-- <a class="aside__link" (click)="slideAction()" routerLink="/user/ajustes">Usuario</a> -->
             <a class="aside__link" (click)="slideAction()" routerLink="/user/sell-list">Publicaciones</a>
             <a class="aside__link" (click)="slideAction()" routerLink="/user/sales">Ventas</a>
             <a class="aside__link" (click)="slideAction()" routerLink="/user/bought">Historial</a>

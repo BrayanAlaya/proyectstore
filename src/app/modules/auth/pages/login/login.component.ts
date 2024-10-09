@@ -41,6 +41,7 @@ export class LoginComponent {
 
     this._userService.login(user).subscribe({
       next: (response: any) => {
+        console.log(response)
         if (response.status == 200) {
           this.validForm = true;
 
@@ -55,7 +56,7 @@ export class LoginComponent {
           this._route.navigate(["/auth/auth_code/account"])
         }else{
           this.validForm = false;
-        } 
+        }
       }
     })
   }

@@ -64,6 +64,7 @@ export class ForgetComponent {
           this.passwordChanged = true
           localStorage.removeItem("user")
           localStorage.removeItem("token")
+          this._r.navigate(["/"])
         } else {
           this.passwordChanged = false
         }

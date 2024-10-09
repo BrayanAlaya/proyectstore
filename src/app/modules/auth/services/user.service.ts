@@ -30,6 +30,14 @@ export class UserService {
     return this._http.put(this._dbUrl + "/user/update", user, {headers: headers})
   }
 
+  delete(token: any): Observable<any>{
+    const headers = new HttpHeaders({
+      "Authorization": token,
+    })
+
+    return this._http.delete(this._dbUrl + "/user/delete", {headers: headers})
+  }
+
   sendAuthCode(user: User):Observable<any>{
     return this._http.post(this._dbUrl + "/user/code/create-code", user)
   }

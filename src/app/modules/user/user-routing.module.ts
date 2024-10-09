@@ -13,6 +13,7 @@ const routes: Routes = [
       {path: "sales", loadChildren: ()=> import("../purchases/pages/sales-hitorial/sales-hitorial.module").then(m => m.SalesHitorialModule)},
       {path: "wishlist", loadChildren: ()=>  import("../wishlist/wishlist.module").then(m => m.WishlistModule)},
       {path: "notifications", loadChildren: ()=>  import("../notifications/notifications.module").then(m => m.NotificationsModule)},
+      {path: "cards", loadChildren: ()=>  import("./pages/cards/cards.module").then(m => m.CardsModule)},
       {path: "**", redirectTo:"", pathMatch:"full"}
     ]
   }
